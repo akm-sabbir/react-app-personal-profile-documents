@@ -1,0 +1,33 @@
+{
+  "name": "parcel-react-client-starter",
+  "private": true,
+  "version": "0.0.0",
+  "source": "src/index.html",
+  "overrides": {
+  "@react-pdf/layout": "3.6.4"
+  },
+  "scripts": {
+    "start": "parcel",
+    "build": "parcel build"
+  },
+  "dependencies": {
+    "@react-pdf/renderer": "^4.5.1",
+    "pdf-dist": "^1.0.0",
+    "pdfjs-dist": "^5.7.284",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-pdf": "^10.4.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.2.4",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "autoprefixer": "^10.5.0",
+    "buffer": "^6.0.3",
+    "parcel": "^2.14.0",
+    "postcss": "^8.5.14",
+    "process": "^0.11.10",
+    "tailwindcss": "^4.2.4",
+    "vite": "^8.0.11"
+  }
+}
