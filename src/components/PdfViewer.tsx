@@ -34,7 +34,7 @@ export  const PdfViewer = ({selectedFile}) =>
   flexDirection: 'column',
   alignItems: 'center', // Horizontal centering
   justifyContent: 'center', // Vertical centering
-  minHeight: '100vh',
+  minHeight: '130vh',
   backgroundColor: '#525659', // Dark grey typical of PDF viewers
 };
 const zoomerStyles = {
@@ -48,13 +48,13 @@ const zoomerStyles = {
   height: '35px',
   borderRadius: '100%',
   border: '1px solid #ccc',
-  backgroundColor: 'purple',
+  borderColor: 'orange',
   cursor: 'pointer',
   margin: '0 5px'
 };
 
     return (
-        <div className="col-span-4 border rounded-2xl p-4 shadow overflow-auto">
+        <div className="col-span-4 border rounded-2xl border-orange-300 p-4 shadow overflow-auto">
 
         {selectedFile ? (
             <React.Fragment>
@@ -78,7 +78,8 @@ const zoomerStyles = {
             {/* PDF Pagination */}
             <div className="flex justify-between mt-4">
               <Button
-                value={"Prev Page"} className={"px-3 py-1 border rounded disabled:opacity-50"}
+                value={"Prev"} className={"px-3 py-1 border border border-orange-300 rounded \
+                    disabled:opacity-50 hover:bg-orange-300 hover:border-transparent cursor-pointer"}
                 onClick={() => setCurrentPdfPage((p) => p - 1)} disabledCond={currentPdfPage <= 1}
               />
 
@@ -87,18 +88,20 @@ const zoomerStyles = {
               </span>
 
               <Button
-                value={"Next Page"} className={"px-3 py-1 border rounded disabled:opacity-50"}
+                value={"Next"} className={"px-3 py-1 border border border-orange-300 rounded \
+                    disabled:opacity-50 hover:bg-orange-300 hover:border-transparent cursor-pointer"}
                 onClick={() => setCurrentPdfPage((p) => p + 1)} disabledCond={currentPdfPage >= numPages}
               />
 
             </div>
              <div style={zoomerStyles} >
-                <button onClick={zoomOut} style={btnStyle}> - </button>
+                <button onClick={zoomOut} style={btnStyle} className="hover:bg-orange-300 hover:border-transparent" > - </button>
                 <span style={{ margin: '0 15px' }}>{Math.round(scale * 100)}%</span>
-                <button onClick={zoomIn} style={btnStyle}> + </button>
+                <button onClick={zoomIn} style={btnStyle} className="hover:bg-orange-300 hover:border-transparent" > + </button>
             </div>
             </React.Fragment>
-            ) : (<p>Select a PDF File to view</p>)
+            ) : (<div className="flex justify-center items-center" ><p className=" items-center justify-center text-4xl">
+                Select a PDF from Document to View</p> </div>)
         }
         </div>
      );
