@@ -54,14 +54,14 @@ const zoomerStyles = {
 };
 
     return (
-        <div className="col-span-4 border rounded-2xl border-orange-300 p-4 shadow overflow-auto">
+        <div className="main-content 4fr border rounded-2xl border-orange-300 p-4 shadow overflow-auto">
 
         {selectedFile ? (
             <React.Fragment>
             <div style={viewerStyles}>
 
             <Document
-              file={`http://localhost:5000/api/files/${selectedFile}`}
+              file={`https://backendresourceverceldeployment.vercel.app/api/files/${selectedFile}`}
               onLoadSuccess={( {numPages} ) => {
                             setNumPages(numPages);
                             setCurrentPdfPage(1);
