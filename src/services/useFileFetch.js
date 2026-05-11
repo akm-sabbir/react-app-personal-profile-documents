@@ -7,7 +7,7 @@ export function fileFetch(setFiles, setError, setLoading){
         setError(null);
 
         try {
-            const res = await fetch("https://backendresourceverceldeployment.vercel.app/api/files");
+            const res = await fetch("http://localhost:5000/api/files");//"https://backendresourceverceldeployment.vercel.app/api/files");
 
             if (!res.ok) throw new Error(`Server error (${res.status})`);
 

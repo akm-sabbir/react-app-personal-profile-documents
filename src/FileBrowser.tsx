@@ -54,7 +54,7 @@ const toggleSidebar = () => {
       <div className="space-x-4 -translate-x-8">
 
         <a href="#" className="hover:text-orange-400" onClick={() => setSelectedFile(null)}>Home</a>
-        <a href="#" className="hover:text-orange-400" onClick={toggleSidebar}>Engineering</a>
+        <a href="#" className="hover:text-orange-400">Engineering</a>
         <a href="#" className="hover:text-orange-400">Research</a>
         <a href="#" className="hover:text-orange-400">About</a>
         <a href="#" className="hover:text-orange-400">Contact</a>

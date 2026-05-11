@@ -1,12 +1,74 @@
     import {Button} from 'components/Button';
-    import React, { useEffect, useState } from "react";
+    import React, { useEffect, useState, useRef } from "react";
+    import { createPortal } from "react-dom";
+
+//////////////////////////////////////////////////
+
+function Tooltip({  text, position = "top", onClick }) {
+  const [rect, setRect] = useState(null);
+  const ref = useRef(null);
+  const lastdot = text.lastIndexOf(".");
+  function show() {
+    setRect(ref.current.getBoundingClientRect());
+  }
+
+  function hide() {
+    setRect(null);
+  }
+
+  const tooltipStyle = rect ? {
+    position: "fixed",
+    left:     (rect.left + rect.width) / 2 + rect.left*2,
+    top:      position === "top"
+                ? rect.top  - 12
+                : rect.bottom + 12,
+    transform: position === "top"
+                ? "translate(-50%, -100%)"
+                : "translate(-50%, 0)",
+    background:    "#1e1b4b",
+    color:         "#fff",
+    fontSize:      13,
+    padding:       "7px 13px",
+    borderRadius:  8,
+    whiteSpace:    "nowrap",
+    pointerEvents: "none",
+    zIndex:        9999,
+    overflow:      "hidden",
+    animation:     "revealLTR 0.4s cubic-bezier(0.4,0,0.2,1) forwards",
+  } : null;
+
+  return (
+    <>
+      <div
+        ref={ref}
+        className={"w-[200px] text-left bg-orange-100 rounded-lg hover:bg-blue-600 \
+                            hover:text-white"}
+        style={{  width:"200px", maxWidth: "200px",overflow: "hidden",
+            textOverflow: "ellipsis", whiteSpace: "nowrap",padding: "8px 12px",}}
+        onMouseEnter={show}
+        onMouseLeave={hide}
+        onClick={onClick}
+      >
+        {text}
+      </div>
+
+      {/* ✅ Injected directly into body — no parent clips it */}
+      {rect && createPortal(
+        <div style={tooltipStyle}>{text.slice(0, lastdot)}</div>,
+        document.body
+      )}
+    </>
+  );
+}
+
+///////////////////////////////////////////////////
 
 function TruncatedButton({ label, onClick }) {
   const [visible, setVisible] = useState(false);
   const lastdot = label.lastIndexOf(".");
   return (
     <div
-      style={{ position: "relative", display: "inline-block", maxWidth: 140 }}
+      style={{ position: "relative", display: "inline-block", maxWidth: 140,overflow: "visible" }}
       onMouseEnter={() => setVisible(true)}
       onMouseLeave={() => setVisible(false)}
     >
@@ -15,7 +77,7 @@ function TruncatedButton({ label, onClick }) {
         className={"w-[200px] text-left bg-orange-100 rounded-lg hover:bg-blue-600 hover:text-white"}
         onClick={onClick}
         style={{
-          overflow: "hidden",
+            overflow: "hidden",
           textOverflow: "ellipsis",   // ← shows "..."
           whiteSpace: "nowrap",       // ← keeps text on one line
           padding: "8px 12px",
@@ -31,6 +93,7 @@ function TruncatedButton({ label, onClick }) {
           position: "absolute",
           bottom: "calc(100% + 8px)",
           left: "50%",
+          whiteSpace: "nowrap",
           transform: "translateX(-30%)",
           background: "#1e1b4b",
           color: "#fff",
@@ -84,9 +147,15 @@ function TruncatedButton({ label, onClick }) {
                 }`}
                 onClick={() => onSelectUpdate(file.name)}>
                 {file.name}
-              </button>*/}
+              </button>
               <TruncatedButton  label={file.name}
-                    onClick={() => onSelectUpdate(file.name)}/>
+                    onClick={() => onSelectUpdate(file.name)}/>*/}
+                    <Tooltip text={file.name} position="top" onClick={() => onSelectUpdate(file.name)}>
+                        <button  style={{width:"100%", display:"block"
+                        }}  >
+                            {file.name}
+                      </button>
+                    </Tooltip>
             </div>
           ))}
          </div>
@@ -115,7 +184,7 @@ function TruncatedButton({ label, onClick }) {
         </div>
         <button
         onClick={toggleSidebar}
-            className="absolute top-60 -right-2 z-50 flex h-8 w-6 items-center justify-center h-15 border \
+            className="absolute top-60 -right-2 z-50 flex h-8 w-4 items-center justify-center h-15 border \
             bg-white shadow-md hover:bg-gray-50"
         >   {isSidebarOpen ? '◀' : '▶'}
         </button>
