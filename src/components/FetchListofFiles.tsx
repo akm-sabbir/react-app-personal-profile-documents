@@ -41,10 +41,10 @@ function Tooltip({  text, position = "top", onClick }) {
     <>
       <div
         ref={ref}
-        className={"w-[200px] text-left bg-orange-100 rounded-lg hover:bg-blue-600 \
+        className={"w-[200px] text-left bg-green-500 rounded-lg hover:bg-blue-600 \
                             hover:text-white"}
         style={{  width:"200px", maxWidth: "200px",overflow: "hidden",
-            textOverflow: "ellipsis", whiteSpace: "nowrap",padding: "8px 12px",}}
+            textOverflow: "ellipsis", whiteSpace: "nowrap",padding: "8px 12px",cursor:"pointer"}}
         onMouseEnter={show}
         onMouseLeave={hide}
         onClick={onClick}
@@ -167,7 +167,7 @@ function TruncatedButton({ label, onClick }) {
         onClick={onPageBackwardUpdate} disabledCond={currentPage === 1 }/>
 
           <span className="text-sm">
-            Page {currentPage} of {totalPages}
+            Page  {currentPage} of {totalPages}
           </span>
 
           <Button
@@ -184,7 +184,7 @@ function TruncatedButton({ label, onClick }) {
         </div>
         <button
         onClick={toggleSidebar}
-            className="absolute top-60 -right-2 z-50 flex h-8 w-4 items-center justify-center h-15 border \
+            className="absolute top-60 -right-2 text-green-600 z-50 flex h-8 w-4 items-center justify-center h-15 border \
             bg-white shadow-md hover:bg-gray-50"
         >   {isSidebarOpen ? '◀' : '▶'}
         </button>

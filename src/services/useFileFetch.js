@@ -1,13 +1,14 @@
 import { useState, useEffect } from 'react';
 
 export function fileFetch(setFiles, setError, setLoading){
-    const FALLBACK_FILES= "http://localhost:1234/pdf-files/Estimation_Practice_Problem.pdf"
+    const FALLBACK_FILES= "https://backendresourceverceldeployment.vercel.app/api/files"
+    const localhost = "http://localhost:5000/api/files"
     const fetchFiles = async () => {
         setLoading(true);
         setError(null);
 
         try {
-            const res = await fetch("http://localhost:5000/api/files");//"https://backendresourceverceldeployment.vercel.app/api/files");
+            const res = await fetch(localhost);//"https://backendresourceverceldeployment.vercel.app/api/files");
 
             if (!res.ok) throw new Error(`Server error (${res.status})`);
 

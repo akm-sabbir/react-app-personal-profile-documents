@@ -9,6 +9,7 @@ import { WorkerMessageHandler } from "react-pdf/node_modules/pdfjs-dist/build/pd
 import 'react-pdf/dist/Page/TextLayer.css';
 import 'react-pdf/dist/Page/AnnotationLayer.css';
 import React, { useEffect, useState } from "react";
+import {EditableTextBox} from "components/EditableButton";
 //import { PDFViewer, Page, View, Text, StyleSheet, Document } from '@react-pdf/renderer';
 // This tells PDF.js to use the local worker file from your public folder or node_modules
 
@@ -53,6 +54,12 @@ const zoomerStyles = {
   margin: '0 5px'
 };
 
+const containerStyle = {
+  display: 'inline-flex',
+  alignItems: 'center',
+  whiteSpace: 'nowrap' // Prevents the text and box from wrapping to the next line
+};
+
     return (
         <div className="main-content 4fr border rounded-2xl border-orange-300 p-4 shadow overflow-auto">
 
@@ -78,17 +85,18 @@ const zoomerStyles = {
             {/* PDF Pagination */}
             <div className="flex justify-between mt-4">
               <Button
-                value={"Prev"} className={"px-3 py-1 border border border-orange-300 rounded \
+                value={"Prev"} className={"px-3 py-1 h-8 border border border-orange-300 rounded \
                     disabled:opacity-50 hover:bg-orange-300 hover:border-transparent cursor-pointer"}
                 onClick={() => setCurrentPdfPage((p) => p - 1)} disabledCond={currentPdfPage <= 1}
               />
 
-              <span className="text-sm">
-                Page {currentPdfPage} of {numPages || 1}
+              <span className="text-sm" style= {containerStyle}>
+                Page <EditableTextBox number={currentPdfPage} setPageNumber={setCurrentPdfPage} numPage={numPages} />
+                of {numPages || 1}
               </span>
 
               <Button
-                value={"Next"} className={"px-3 py-1 border border border-orange-300 rounded \
+                value={"Next"} className={"px-3 py-1 h-8 border border border-orange-300 rounded \
                     disabled:opacity-50 hover:bg-orange-300 hover:border-transparent cursor-pointer"}
                 onClick={() => setCurrentPdfPage((p) => p + 1)} disabledCond={currentPdfPage >= numPages}
               />
