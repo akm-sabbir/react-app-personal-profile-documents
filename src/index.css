@@ -13,12 +13,17 @@
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  .layout-grid.sidebar-collapsed {
+  .sidebar-collapsed {
     /* Collapsed: 0 parts sidebar, 5 parts main */
     grid-template-columns: 0px 1fr;
 
   }
 
+  .breadcrumb-collapsed{
+    overflow: hidden;
+    width: 100%;
+    min-height: 0px;
+  }
   .sidebar-content {
     position: relative;
     min-width: 0;

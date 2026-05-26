@@ -41,9 +41,9 @@ function Tooltip({  text, position = "top", onClick }) {
     <>
       <div
         ref={ref}
-        className={"w-[200px] text-left bg-green-500 rounded-lg hover:bg-blue-600 \
+        className={"text-left bg-green-500 rounded-lg hover:bg-blue-600 \
                             hover:text-white"}
-        style={{  width:"200px", maxWidth: "200px",overflow: "hidden",
+        style={{  width:"220px", maxWidth: "220px",overflow: "hidden",
             textOverflow: "ellipsis", whiteSpace: "nowrap",padding: "8px 12px",cursor:"pointer"}}
         onMouseEnter={show}
         onMouseLeave={hide}
@@ -74,7 +74,7 @@ function TruncatedButton({ label, onClick }) {
     >
       {/* Button with truncated text */}
       <button
-        className={"w-[200px] text-left bg-orange-100 rounded-lg hover:bg-blue-600 hover:text-white"}
+        className={"w-[220px] text-left bg-orange-100 rounded-lg hover:bg-blue-600 hover:text-white"}
         onClick={onClick}
         style={{
             overflow: "hidden",
@@ -122,13 +122,14 @@ function TruncatedButton({ label, onClick }) {
 
     export const ListofFiles = ({currentPage, totalPages, currentFiles, onPageForwardUpdate,
         onPageBackwardUpdate,loading, error,
-        onSelectUpdate, selectedFile, toggleSidebar, isSidebarOpen}) => {
+        onSelectUpdate, selectedFile, toggleSidebar, toggleSideButtonLoc, isSidebarOpen}) => {
 
+        const inlineStyle = { top: `${toggleSideButtonLoc}px` };
             return (
             <div className="1fr shadow sidebar-content">
             <div className="border rounded-2xl border-orange-300 sidebar-inner-wrapper">
-        <div className="p-4">
-       <h2 className="w-[200px] text-2xl font-semibold mb-2 text-center justify-center
+        <div className="p-2">
+       <h2 className="w-[220px] text-2xl font-semibold mb-2 text-center justify-center
          border-4 border-dashed border-orange-300 rounded-lg text-green-500"> Documents</h2>
 
      {(loading || error) ? (<div><p className="text-red-500 text-lg mb-2">{error}</p></div>):
@@ -162,7 +163,7 @@ function TruncatedButton({ label, onClick }) {
 
         {/* File Pagination */}
        <div className="flex justify-between mt-4">
-        <Button value={"Prev"} className={"px-3 py-1 border border-orange-300 rounded \
+        <Button value={"Prev"} className={"text-blue-600 px-3 py-1 border border-orange-300 rounded \
              disabled:opacity-50 hover:bg-orange-300 hover:border-transparent cursor-pointer"}
         onClick={onPageBackwardUpdate} disabledCond={currentPage === 1 }/>
 
@@ -171,7 +172,7 @@ function TruncatedButton({ label, onClick }) {
           </span>
 
           <Button
-            value={ "Next"} className={"px-3 py-1 border border-orange-300 rounded \
+            value={ "Next"} className={"text-blue-600 px-3 py-1 border border-orange-300 rounded \
                 disabled:opacity-50 hover:bg-orange-300 hover:border-transparent cursor-pointer"}
             onClick={onPageForwardUpdate} disabledCond={currentPage === totalPages}/>
 
@@ -184,7 +185,8 @@ function TruncatedButton({ label, onClick }) {
         </div>
         <button
         onClick={toggleSidebar}
-            className="absolute top-60 -right-2 text-green-600 z-50 flex h-8 w-4 items-center justify-center h-15 border \
+        style = {inlineStyle}
+            className="absolute -right-2 text-green-600 z-50 flex h-8 w-4 items-center justify-center h-15 border \
             bg-white shadow-md hover:bg-gray-50"
         >   {isSidebarOpen ? '◀' : '▶'}
         </button>

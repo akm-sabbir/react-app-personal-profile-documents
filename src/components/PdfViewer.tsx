@@ -9,7 +9,7 @@ import { WorkerMessageHandler } from "react-pdf/node_modules/pdfjs-dist/build/pd
 import 'react-pdf/dist/Page/TextLayer.css';
 import 'react-pdf/dist/Page/AnnotationLayer.css';
 import React, { useEffect, useState } from "react";
-import {EditableTextBox} from "components/EditableButton";
+import {EditableTextBox} from "components/EditableTextBox";
 //import { PDFViewer, Page, View, Text, StyleSheet, Document } from '@react-pdf/renderer';
 // This tells PDF.js to use the local worker file from your public folder or node_modules
 
@@ -59,16 +59,17 @@ const containerStyle = {
   alignItems: 'center',
   whiteSpace: 'nowrap' // Prevents the text and box from wrapping to the next line
 };
-
+    const REMOTE_FILE_FETCH = "https://backendresourceverceldeployment.vercel.app/api/files/"
+    const LOCAL_FILE_FETCH = "http://localhost:5000/api/files/"
     return (
-        <div className="main-content 4fr border rounded-2xl border-orange-300 p-4 shadow overflow-auto">
+        <div className="main-content 4fr border rounded-2xl border-orange-300 p-2 shadow overflow-auto">
 
         {selectedFile ? (
             <React.Fragment>
             <div style={viewerStyles}>
 
             <Document
-              file={`https://backendresourceverceldeployment.vercel.app/api/files/${selectedFile}`}
+              file={`${LOCAL_FILE_FETCH}${selectedFile}`}
               onLoadSuccess={( {numPages} ) => {
                             setNumPages(numPages);
                             setCurrentPdfPage(1);
@@ -85,27 +86,29 @@ const containerStyle = {
             {/* PDF Pagination */}
             <div className="flex justify-between mt-4">
               <Button
-                value={"Prev"} className={"px-3 py-1 h-8 border border border-orange-300 rounded \
+                value={"Prev"} className={"text-blue-600 px-3 py-1 h-8 border border border-orange-300 rounded \
                     disabled:opacity-50 hover:bg-orange-300 hover:border-transparent cursor-pointer"}
                 onClick={() => setCurrentPdfPage((p) => p - 1)} disabledCond={currentPdfPage <= 1}
               />
 
-              <span className="text-sm" style= {containerStyle}>
+              <span className="text-sm" style= {containerStyle} className="text-blue-600">
                 Page <EditableTextBox number={currentPdfPage} setPageNumber={setCurrentPdfPage} numPage={numPages} />
                 of {numPages || 1}
               </span>
 
               <Button
-                value={"Next"} className={"px-3 py-1 h-8 border border border-orange-300 rounded \
+                value={"Next"} className={"px-3 text-blue-600 py-1 h-8 border border border-orange-300 rounded \
                     disabled:opacity-50 hover:bg-orange-300 hover:border-transparent cursor-pointer"}
                 onClick={() => setCurrentPdfPage((p) => p + 1)} disabledCond={currentPdfPage >= numPages}
               />
 
             </div>
              <div style={zoomerStyles} >
-                <button onClick={zoomOut} style={btnStyle} className="hover:bg-orange-300 hover:border-transparent" > - </button>
+                <button onClick={zoomOut} style={btnStyle} className="text-blue-600 hover:bg-orange-300 \
+                hover:border-transparent" > - </button>
                 <span style={{ margin: '0 15px' }}>{Math.round(scale * 100)}%</span>
-                <button onClick={zoomIn} style={btnStyle} className="hover:bg-orange-300 hover:border-transparent" > + </button>
+                <button onClick={zoomIn} style={btnStyle} className="text-blue-600 hover:bg-orange-300 \
+                hover:border-transparent" > + </button>
             </div>
             </React.Fragment>
             ) : (<div className="flex justify-center items-center" ><p className=" items-center justify-center text-4xl">
