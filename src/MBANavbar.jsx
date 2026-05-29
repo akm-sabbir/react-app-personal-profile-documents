@@ -5,6 +5,7 @@ import {navData, resources} from './constants/resourcesData';
 import {ContentArea} from './components/contentAreacreation';
 import {HamburgerButton} from 'components/HamburgerButton';
 import FileBrowser from './FileBrowser';
+import Cache from './utils/cacheSystem';
 import { createClient } from '@supabase/supabase-js';
 
 const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;

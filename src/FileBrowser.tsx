@@ -6,7 +6,6 @@ import {PdfViewer} from "./components/PdfViewer";
 import {PdfReader} from "./components/PdfViewer";
 import "./index.css";
 
-
 // Required for react-pdf
 
 function FileBrowser({course, supabase}) {
@@ -32,7 +31,8 @@ function FileBrowser({course, supabase}) {
 
   useEffect(() => {
    // fileFetch(setFiles, setError, setLoading, course, setSemester, setCourseCode)();
-   fetchDataFromBucket(supabase, course, setFiles, setLoading, setSemester, setCourseCode, setError)();
+
+   fetchDataFromBucket(supabase, course, setFiles, setLoading, setSemester, setCourseCode, setError);
   }, []);
   useEffect(() => {
     console.log("mounted");

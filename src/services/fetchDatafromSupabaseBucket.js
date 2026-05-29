@@ -1,10 +1,19 @@
-
+import globalCache from '../utils/cacheSystem.js';
 
 export function fetchDataFromBucket(supabase, course, setFiles, setLoading, onSetSemester, onSetCode, setError){
     const repository = "academic-resources";
     const root = "pdf-files";
     console.log("Final path", `${root}/${course.semLabel}/${course.code}`);
         const listPdfFilesFromSupabaseBucket = async () => {
+        if(globalCache.has(`${root}/${course.semLabel}/${course.code}`)){
+            const pdfFilesOnly = globalCache.get(`${root}/${course.semLabel}/${course.code}`);
+            setFiles(pdfFilesOnly);
+            onSetSemester(course.semLabel.trim());
+            onSetCode(course.code.trim());
+            setLoading(false);
+            console.log("Fetched files from Cache", pdfFilesOnly);
+            return;
+        }
         try {
             const { data, error } = await supabase
                 .storage
@@ -16,6 +25,7 @@ export function fetchDataFromBucket(supabase, course, setFiles, setLoading, onSe
 
         // Filter out any subdirectories or non-pdf items natively
         const pdfFilesOnly = data.filter(item => item.name.toLowerCase().endsWith('.pdf'));
+        globalCache.set(`${root}/${course.semLabel}/${course.code}`, pdfFilesOnly, 10);
         setFiles(pdfFilesOnly);
         onSetSemester(course.semLabel.trim());
         onSetCode(course.code.trim());
@@ -30,5 +40,5 @@ export function fetchDataFromBucket(supabase, course, setFiles, setLoading, onSe
         }
    };
 
-    return listPdfFilesFromSupabaseBucket;
+    listPdfFilesFromSupabaseBucket();
 }
