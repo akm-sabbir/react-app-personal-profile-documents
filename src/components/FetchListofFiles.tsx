@@ -135,8 +135,8 @@ function TruncatedButton({ label, onClick }) {
      {(loading || error) ? (<div><p className="text-red-500 text-lg mb-2">{error}</p></div>):
         ( <React.Fragment>
             <div className="space-y-2">
-          currentFiles.length > 0 ? {currentFiles.map((file) => (
-            <div key={file.url} className="list-none space-y-2">
+            {currentFiles.map((file) => (
+            <div key={file.id} className="list-none space-y-2">{/*file.url*/}
             {/*<SidebarItem fullName={file.name} onClick={() => onSelectUpdate(file.name)}
                  file={file} selectedFile={selectedFile} /> */}
              {/* <button
@@ -158,9 +158,8 @@ function TruncatedButton({ label, onClick }) {
                       </button>
                     </Tooltip>
             </div>
-          ))}:(<><div className="flex justify-center  h-200" >
-                <p className="align-center  text-2xl text-red-400">
-                THERE IS NO FILE TO VIEW</p></div></>)
+          ))}
+
          </div>
 
         {/* File Pagination */}

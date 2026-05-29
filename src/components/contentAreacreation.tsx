@@ -33,7 +33,7 @@ function ResourceGrid({ course, onSelect,  program }) {
 }
 
 // ─── Content Area ──────────────────────────────────────────────────────────
-export function ContentArea({ selected }) {
+export function ContentArea({ selected, supabase }) {
   if (!selected.course) {
     return (
       <div style={styles.placeholder}>
@@ -60,9 +60,9 @@ export function ContentArea({ selected }) {
     console.log("selected Resource key", selected.resource.key, selected.course.code);
   return <div>
     {selected.course.code !== 'R101' && selected.resource.key === 'lectures'?
-        (<React.Fragment><FileBrowser course={selected.course}/> </React.Fragment>) :
+        (<React.Fragment><FileBrowser course={selected.course} supabase={supabase}/> </React.Fragment>) :
         (selected.resource.key === 'resume' && selected.course.code === 'R101'?
-        (<React.Fragment><FileBrowser course={selected.course}/> </React.Fragment>):
+        (<React.Fragment><FileBrowser course={selected.course} supabase={supabase}/> </React.Fragment>):
      ( <><div className={courseStyles.courseHeader}>
         <span className={courseStyles.courseCode}>{selected.course.code}</span>
         <span className={courseStyles.courseSem}>{selected.course.semLabel}</span>

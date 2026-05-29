@@ -5,16 +5,11 @@ import {fetchDataFromBucket} from "services/fetchDatafromSupabaseBucket";
 import {PdfViewer} from "./components/PdfViewer";
 import {PdfReader} from "./components/PdfViewer";
 import "./index.css";
-import { createClient } from '@supabase/supabase-js';
 
-const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
-const supabaseAnonKey = process.env.REACT_APP_SUPABASE_PUBLISHABLE_KEY;
-
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 // Required for react-pdf
 
-function FileBrowser({course}) {
+function FileBrowser({course, supabase}) {
 
   const [selectedFile, setSelectedFile] = useState(null);
 
@@ -36,8 +31,8 @@ function FileBrowser({course}) {
   // 2. Define the toggle function
 
   useEffect(() => {
-    //fileFetch(setFiles, setError, setLoading, course, setSemester, setCourseCode)();
-   fetchDataFromBucket(supabase, course, setFiles, setLoading, setSemester, setCourseCode)();
+   // fileFetch(setFiles, setError, setLoading, course, setSemester, setCourseCode)();
+   fetchDataFromBucket(supabase, course, setFiles, setLoading, setSemester, setCourseCode, setError)();
   }, []);
   useEffect(() => {
     console.log("mounted");

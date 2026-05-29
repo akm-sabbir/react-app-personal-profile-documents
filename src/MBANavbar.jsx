@@ -5,6 +5,12 @@ import {navData, resources} from './constants/resourcesData';
 import {ContentArea} from './components/contentAreacreation';
 import {HamburgerButton} from 'components/HamburgerButton';
 import FileBrowser from './FileBrowser';
+import { createClient } from '@supabase/supabase-js';
+
+const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
+const supabaseAnonKey = process.env.REACT_APP_SUPABASE_PUBLISHABLE_KEY;
+
+export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 // ─── Breadcrumb ────────────────────────────────────────────────────────────
 function Breadcrumb({ trail, breadCrumbOpen }) {
@@ -186,7 +192,7 @@ export default function MBANavbar() {
             course,
             resource,
             onResourceSelect: handleResourceSelect, program
-          }}
+          }} supabase={supabase}
         />
 
       </div>}
