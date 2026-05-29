@@ -88,7 +88,7 @@ export const mastersNavData = [
 export const resumeNavData = [
   {
     id: "res1",
-    label: "Resume",
+    label: "resume",
     courses: [
       { code: "R101", name: "Professional Resume" },
       { code: "R102", name: "Academic Resume" },
