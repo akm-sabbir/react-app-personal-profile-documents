@@ -1,13 +1,20 @@
 import React, { useEffect, useState, useRef } from "react";
 import {ListofFiles} from "components/FetchListofFiles";
 import {fileFetch} from "services/useFileFetch";
-//import {fetchData} from "services/useDataFetch";
+import {fetchDataFromBucket} from "services/fetchDatafromSupabaseBucket";
 import {PdfViewer} from "./components/PdfViewer";
 import {PdfReader} from "./components/PdfViewer";
 import "./index.css";
+import { createClient } from '@supabase/supabase-js';
+
+const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
+const supabaseAnonKey = process.env.REACT_APP_SUPABASE_PUBLISHABLE_KEY;
+
+export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+
 // Required for react-pdf
 
-function FileBrowser() {
+function FileBrowser({course}) {
 
   const [selectedFile, setSelectedFile] = useState(null);
 
@@ -20,6 +27,8 @@ function FileBrowser() {
   const [files, setFiles] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [semester,setSemester] = useState(null);
+  const [courseCode, setCourseCode] = useState(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [filesPerPage, setFilesPerPage] = useState(8);
   const [toggleButtonLoc, setToggleButtonLoc] = useState(60);
@@ -27,7 +36,8 @@ function FileBrowser() {
   // 2. Define the toggle function
 
   useEffect(() => {
-    fileFetch(setFiles, setError, setLoading)();
+    //fileFetch(setFiles, setError, setLoading, course, setSemester, setCourseCode)();
+   fetchDataFromBucket(supabase, course, setFiles, setLoading, setSemester, setCourseCode)();
   }, []);
   useEffect(() => {
     console.log("mounted");
@@ -108,7 +118,7 @@ const toggleSidebar = () => {
                 toggleSideButtonLoc = {toggleButtonLoc}
                 isSidebarOpen={isSidebarOpen}
                 />
-                <PdfViewer selectedFile={selectedFile} />
+                <PdfViewer selectedFile={selectedFile} selectedSemester={semester} selectedCode={courseCode} supabase={supabase}/>
             </div>
         </div>
     </div>

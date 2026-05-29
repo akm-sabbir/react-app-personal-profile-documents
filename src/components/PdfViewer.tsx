@@ -6,10 +6,13 @@ import {useMemo} from 'react';
 import { useEffect, useRef } from "react";
 import pdfjsWorker from "pdfjs-dist/build/pdf.worker.entry";
 import { WorkerMessageHandler } from "react-pdf/node_modules/pdfjs-dist/build/pdf.worker.min.mjs";
+import 'react-pdf/dist/Page/AnnotationLayer.css';
 import 'react-pdf/dist/Page/TextLayer.css';
 import 'react-pdf/dist/Page/AnnotationLayer.css';
 import React, { useEffect, useState } from "react";
 import {EditableTextBox} from "components/EditableTextBox";
+import { StyleSheet } from '@react-pdf/renderer';
+import path from 'path';
 //import { PDFViewer, Page, View, Text, StyleSheet, Document } from '@react-pdf/renderer';
 // This tells PDF.js to use the local worker file from your public folder or node_modules
 
@@ -23,14 +26,31 @@ import {EditableTextBox} from "components/EditableTextBox";
   import.meta.url
 ).toString();
 
-export  const PdfViewer = ({selectedFile}) =>
+
+export  const PdfViewer = ({selectedFile, selectedSemester, selectedCode, supabase}) =>
 {
   const [numPages, setNumPages] = useState(null);
   const [currentPdfPage, setCurrentPdfPage] = useState(1);
   const [scale, setScale] = useState(1.0); // 1.0 = 100
   const zoomIn = () => setScale(prev => Math.min(prev + 0.2, 3.0));  // Max zoom 300%
-  const zoomOut = () => setScale(prev => Math.max(prev - 0.2, 0.5));
-    const viewerStyles = {
+  const zoomOut = () => setScale(prev => Math.max(prev - 0.2, 0.4));
+  const [pdfUrl, setPdfUrl] = useState('');
+  const repository = "academic-resources";
+  const root = "pdf-files";
+  useEffect(() => {
+    // Generate the public CDN link using your initialized client
+
+    const { data } = supabase
+      .storage
+      .from(repository)
+      .getPublicUrl(`${root}/${selectedSemester}/${selectedCode}/${selectedFile}`);
+
+    if (data?.publicUrl) {
+      setPdfUrl(data.publicUrl);
+    }
+  }, [selectedFile]);
+    console.log("public url for pdf file,", pdfUrl);
+   const viewerStyles = {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center', // Horizontal centering
@@ -60,16 +80,42 @@ const containerStyle = {
   whiteSpace: 'nowrap' // Prevents the text and box from wrapping to the next line
 };
     const REMOTE_FILE_FETCH = "https://backendresourceverceldeployment.vercel.app/api/files/"
-    const LOCAL_FILE_FETCH = "http://localhost:5000/api/files/"
+    const LOCAL_FILE_FETCH = "http://localhost:5000/api/api/"
+    const baseUrl = "http://localhost:5000/api/resources/files";
+    const previewUrl = `${baseUrl}?semester=${encodeURIComponent(selectedSemester)}&course_name=
+                    ${encodeURIComponent(selectedCode)}&file_name=${encodeURIComponent(selectedFile)}`;
+    console.log("Selected File: ", selectedFile);
+    console.log("Selected Semester: ", selectedSemester);
+    console.log("Selected Code: ", selectedCode);
+    console.log("URL: ", previewUrl);
+
+const pdfstyles = StyleSheet.create({
+  page: {
+    position: 'relative', // Sets the boundary for absolute children
+    backgroundColor: '#ffffff',
+  },
+  background: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: '#f0f4f8', // Your background color
+    zIndex: -1, // Pushes it behind your text content
+  },
+  content: {
+    padding: 30, // Safely pad your text without shrinking the background
+  }
+});
     return (
         <div className="main-content 4fr border rounded-2xl border-orange-300 p-2 shadow overflow-auto">
 
-        {selectedFile ? (
+        {selectedFile !== null ? (
             <React.Fragment>
             <div style={viewerStyles}>
 
             <Document
-              file={`${LOCAL_FILE_FETCH}${selectedFile}`}
+              file= {pdfUrl}//{`${previewUrl}`} //{`${LOCAL_FILE_FETCH}${selectedFile}`}
               onLoadSuccess={( {numPages} ) => {
                             setNumPages(numPages);
                             setCurrentPdfPage(1);
@@ -80,7 +126,7 @@ const containerStyle = {
               }}
               error={<p className="text-red-500">Failed to load PDF</p>}
               >
-            <Page pageNumber={currentPdfPage}  scale={scale}/>
+            <Page pageNumber={currentPdfPage}  scale={scale} size="A4" style={pdfstyles.page} />
             </Document>
             </div>
             {/* PDF Pagination */}
@@ -111,9 +157,11 @@ const containerStyle = {
                 hover:border-transparent" > + </button>
             </div>
             </React.Fragment>
-            ) : (<div className="flex justify-center items-center" ><p className=" items-center justify-center text-4xl">
-                Select a PDF from Document to View</p> </div>)
+            ) : (<><div className="flex justify-center items-center h-200" >
+                <p className="items-center  text-7xl text-blue-600">
+                Select a Document from Document List to View</p></div></>)
         }
+
         </div>
      );
  }

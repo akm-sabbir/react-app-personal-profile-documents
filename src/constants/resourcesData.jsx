@@ -41,8 +41,57 @@ export const navData = [
 export const resources = [
   { key: "lectures",    icon: "🎬", label: "Lectures",    count: 24 },
   { key: "books",       icon: "📚", label: "Books",       count: 6  },
-  { key: "assignments", icon: "📝", label: "Assignments", count: 8  },
+  { key: "programming", icon: "📝", label: "Programming Solutions", count: 8  },
   { key: "notes",       icon: "🗒️",  label: "Notes",       count: 15 },
-  { key: "quizzes",     icon: "📊", label: "Quizzes",     count: 5  },
-  { key: "syllabus",    icon: "📋", label: "Syllabus",    count: 1  },
+  { key: "blogging",     icon: "📊", label: "Blogging",     count: 5  },
+  { key: "projects",    icon: "📋", label: "Projects",    count: 1  },
+  { key: "resume",      icon: "📋", label: "Resume",    count: 2  },
 ];
+
+export const mastersNavData = [
+  {
+    id: "sem1",
+    label: "Dr Finkel",
+    courses: [
+      { code: "CS655", name: "Programing Language" },
+      { code: "CS900", name: "Research on PL" },
+      { code: "CS905", name: "Compiler Design" },
+    ],
+  },
+  {
+    id: "sem2",
+    label: "Dr Nathan",
+    courses: [
+      { code: "CS800", name: "Computer Vision" },
+      { code: "CS570", name: "Numerical Analysis" },
+      { code: "CS670", name: "Machine Learning" },
+    ],
+  },
+  {
+    id: "sem3",
+    label: "Dr Sally",
+    courses: [
+      { code: "MED600", name: "Genetics Engineering" },
+      { code: "MED", name: "Cancer Medicine" },
+    ],
+  },
+  {
+    id: "sem4",
+    label: "Dr Hayes",
+    courses: [
+      { code: "CS500", name: "Software Engineering" },
+      { code: "CS505", name: "Database" },
+    ],
+  },
+];
+
+export const resumeNavData = [
+  {
+    id: "res1",
+    label: "Resume",
+    courses: [
+      { code: "R101", name: "Professional Resume" },
+      { code: "R102", name: "Academic Resume" },
+    ],
+  }
+  ];

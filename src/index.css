@@ -2,7 +2,7 @@
 
 @layer components {
   .pdf-wrapper {
-    @apply font-['Segoe_UI',_sans-serif] border border-[#e5e5e5] rounded-[12px] overflow-hidden bg-white;
+    @apply font-['Segoe_UI',_sans-serif] border border-[#e5e5e5] rounded-[12px] overflow-hidden bg-white h-400;
   }
 
   .layout-grid {

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-export function fileFetch(setFiles, setError, setLoading){
+export function fileFetch(setFiles, setError, setLoading,course, onSetSemester, onSetCode){
     const FALLBACK_FILES= "https://backendresourceverceldeployment.vercel.app/api/files"
     const localhost = "http://localhost:5000/api/files"
     const fetchFiles = async () => {
@@ -8,7 +8,10 @@ export function fileFetch(setFiles, setError, setLoading){
         setError(null);
 
         try {
-            const res = await fetch(localhost);//"https://backendresourceverceldeployment.vercel.app/api/files");
+             const baseUrl = "http://localhost:5000/api/resources/list";
+             const previewUrl = `${baseUrl}?semester=${encodeURIComponent(course.semLabel)}\
+             &course_name=${encodeURIComponent(course.code)}`;
+             const res = await fetch(previewUrl); //fetch(localhost);//"https://backendresourceverceldeployment.vercel.app/api/files");
 
             if (!res.ok) throw new Error(`Server error (${res.status})`);
 
@@ -23,6 +26,8 @@ export function fileFetch(setFiles, setError, setLoading){
             if (!Array.isArray(data)) throw new Error("Data is not an array");
             console.log(data)
             setFiles(data);
+            onSetSemester(course.semLabel.trim());
+            onSetCode(course.code.trim());
             setLoading(false);
         } catch (err) {
                 console.log("Fetch failed:", err);

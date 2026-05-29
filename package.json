@@ -5,7 +5,7 @@
   "source": "src/index.html",
   "proxy": "http://localhost:5000",
   "overrides": {
-  "@react-pdf/layout": "3.6.4"
+    "@react-pdf/layout": "3.6.4"
   },
   "scripts": {
     "start": "parcel",
@@ -13,6 +13,8 @@
   },
   "dependencies": {
     "@react-pdf/renderer": "^4.5.1",
+    "@supabase/ssr": "^0.10.3",
+    "@supabase/supabase-js": "^2.106.2",
     "pdf-dist": "^1.0.0",
     "pdfjs-dist": "^5.7.284",
     "react": "^19.1.0",
@@ -26,6 +28,7 @@
     "autoprefixer": "^10.5.0",
     "buffer": "^6.0.3",
     "parcel": "^2.14.0",
+    "path-browserify": "^1.0.1",
     "postcss": "^8.5.14",
     "process": "^0.11.10",
     "tailwindcss": "^4.2.4",
