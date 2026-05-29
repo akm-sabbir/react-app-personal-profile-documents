@@ -3,6 +3,7 @@ import globalCache from '../utils/cacheSystem.js';
 export function fetchDataFromBucket(supabase, course, setFiles, setLoading, onSetSemester, onSetCode, setError){
     const repository = "academic-resources";
     const root = "pdf-files";
+    setLoading(true);
     console.log("Final path", `${root}/${course.semLabel}/${course.code}`);
         const listPdfFilesFromSupabaseBucket = async () => {
         if(globalCache.has(`${root}/${course.semLabel}/${course.code}`)){
@@ -25,7 +26,7 @@ export function fetchDataFromBucket(supabase, course, setFiles, setLoading, onSe
 
         // Filter out any subdirectories or non-pdf items natively
         const pdfFilesOnly = data.filter(item => item.name.toLowerCase().endsWith('.pdf'));
-        globalCache.set(`${root}/${course.semLabel}/${course.code}`, pdfFilesOnly, 10);
+        globalCache.set(`${root}/${course.semLabel}/${course.code}`, pdfFilesOnly, 3600);
         setFiles(pdfFilesOnly);
         onSetSemester(course.semLabel.trim());
         onSetCode(course.code.trim());
