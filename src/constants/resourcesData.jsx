@@ -63,7 +63,7 @@ export const mastersNavData = [
     label: "Dr Nathan",
     courses: [
       { code: "CS800", name: "Computer Vision" },
-      { code: "CS570", name: "Numerical Analysis" },
+      { code: "CS537", name: "Numerical Analysis" },
       { code: "CS670", name: "Machine Learning" },
     ],
   },

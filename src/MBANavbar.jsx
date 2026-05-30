@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import {navbarStyles, brandStyles, breadcrumbStyles} from "./styles/componentStyles";
 import {SemesterDropdown} from './components/SemesterDropdown';
 import {navData, resources} from './constants/resourcesData';
-import {ContentArea} from './components/contentAreacreation';
+import {ContentArea} from './components/ContentAreacreation';
 import {HamburgerButton} from 'components/HamburgerButton';
 import FileBrowser from './FileBrowser';
 import Cache from './utils/cacheSystem';
