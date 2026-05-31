@@ -105,6 +105,7 @@ export const resumeNavData = [
       { code: "RES102", name: "JavaScript", category:"books" },
       { code: "RES103", name: "Python", category:"books" },
       { code: "RES104", name: "React", category:"books" },
+      { code: "RES105", name: "Distributed Computing", category:"books" },
     ],
   },
   {
@@ -114,6 +115,8 @@ export const resumeNavData = [
       { code: "RES301", name: "Psychology", category:"books" },
       { code: "RES302", name: "Math",category:"books" },
       { code: "RES303", name: "Physics",category:"books" },
+      { code: "RES304", name: "Machine Learning",category:"books" },
+      { code: "RES305", name: "Optimization",category:"books" },
         ],
 
   },{

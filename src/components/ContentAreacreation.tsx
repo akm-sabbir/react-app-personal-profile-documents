@@ -88,7 +88,8 @@ export function ContentArea({ selected, supabase }) {
     );
   }
 
-   if (selected.course.category.toLowerCase() === selected.resource.key.toLowerCase()){
+   {/*if (selected.course.category.toLowerCase() === selected.resource.key.toLowerCase()){*/}
+   if (Object.hasOwn(fileCountDict,selected.resource.key) && fileCountDict[selected.resource.key] > 0){
         return (<React.Fragment><FileBrowser course={selected.course} supabase={supabase}/> </React.Fragment>) ;
         }
     console.log("selected Resource key", selected.resource.key, selected.course.code);
@@ -101,12 +102,12 @@ export function ContentArea({ selected, supabase }) {
        </div>
        <h2 className={courseStyles.courseTitle}>{selected.resource.label}</h2>
        <p className={courseStyles.courseSub}>
-        {selected.course.name} · {selected.resource.count} items
+        {selected.course.name} · {0} items
        </p>
       <div style={styles.placeholder}>
         <span style={{ fontSize: 32 }}>{selected.resource.icon}</span>
         <p style={styles.placeholderText}>
-          {selected.resource.label} content for{" "}
+         Zero {" "} {selected.resource.label} content for{" "}
           <strong>{selected.course.name}</strong>
         </p>
       </div> </>)
