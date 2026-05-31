@@ -27,7 +27,7 @@ import path from 'path';
 ).toString();
 
 
-export  const PdfViewer = ({selectedFile, selectedSemester, selectedCode, supabase}) =>
+export  const PdfViewer = ({selectedFile, selectedSemester, selectedCode, supabase, category}) =>
 {
   const [numPages, setNumPages] = useState(null);
   const [currentPdfPage, setCurrentPdfPage] = useState(1);
@@ -43,7 +43,7 @@ export  const PdfViewer = ({selectedFile, selectedSemester, selectedCode, supaba
     const { data } = supabase
       .storage
       .from(repository)
-      .getPublicUrl(`${root}/${selectedSemester}/${selectedCode}/${selectedFile}`);
+      .getPublicUrl(`${root}/${selectedSemester}/${selectedCode}/${category}/${selectedFile}`);
 
     if (data?.publicUrl) {
       setPdfUrl(data.publicUrl);

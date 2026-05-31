@@ -11,13 +11,7 @@ import "./index.css";
 function FileBrowser({course, supabase}) {
 
   const [selectedFile, setSelectedFile] = useState(null);
-
-
   const [currentPage, setCurrentPage] = useState(1);
-
-
-  // PDF page control
-
   const [files, setFiles] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -31,7 +25,6 @@ function FileBrowser({course, supabase}) {
 
   useEffect(() => {
    // fileFetch(setFiles, setError, setLoading, course, setSemester, setCourseCode)();
-
    fetchDataFromBucket(supabase, course, setFiles, setLoading, setSemester, setCourseCode, setError);
   }, []);
   useEffect(() => {
@@ -113,7 +106,8 @@ const toggleSidebar = () => {
                 toggleSideButtonLoc = {toggleButtonLoc}
                 isSidebarOpen={isSidebarOpen}
                 />
-                <PdfViewer selectedFile={selectedFile} selectedSemester={semester} selectedCode={courseCode} supabase={supabase}/>
+                <PdfViewer selectedFile={selectedFile} selectedSemester={semester} selectedCode={courseCode}
+                supabase={supabase} category={course.category}/>
             </div>
         </div>
     </div>

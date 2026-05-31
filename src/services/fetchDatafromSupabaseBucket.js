@@ -4,10 +4,10 @@ export function fetchDataFromBucket(supabase, course, setFiles, setLoading, onSe
     const repository = "academic-resources";
     const root = "pdf-files";
     setLoading(true);
-    console.log("Final path", `${root}/${course.semLabel}/${course.code}`);
+    console.log("Final path", `${root}/${course.semLabel}/${course.code}/${course.category}`);
         const listPdfFilesFromSupabaseBucket = async () => {
-        if(globalCache.has(`${root}/${course.semLabel}/${course.code}`)){
-            const pdfFilesOnly = globalCache.get(`${root}/${course.semLabel}/${course.code}`);
+        if(globalCache.has(`${root}/${course.semLabel}/${course.code}/${course.category}`)){
+            const pdfFilesOnly = globalCache.get(`${root}/${course.semLabel}/${course.code}/${course.category}`);
             setFiles(pdfFilesOnly);
             onSetSemester(course.semLabel.trim());
             onSetCode(course.code.trim());
@@ -19,14 +19,14 @@ export function fetchDataFromBucket(supabase, course, setFiles, setLoading, onSe
             const { data, error } = await supabase
                 .storage
                 .from(repository)
-                .list(`${root}/${course.semLabel}/${course.code}`, {
+                .list(`${root}/${course.semLabel}/${course.code}/${course.category}`, {
                 limit: 100,
                 sortBy: { column: 'name', order: 'asc' },
             });
 
         // Filter out any subdirectories or non-pdf items natively
         const pdfFilesOnly = data.filter(item => item.name.toLowerCase().endsWith('.pdf'));
-        globalCache.set(`${root}/${course.semLabel}/${course.code}`, pdfFilesOnly, 3600);
+        globalCache.set(`${root}/${course.semLabel}/${course.code}/${course.category}`, pdfFilesOnly, 3600);
         setFiles(pdfFilesOnly);
         onSetSemester(course.semLabel.trim());
         onSetCode(course.code.trim());

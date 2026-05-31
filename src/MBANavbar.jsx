@@ -7,11 +7,11 @@ import {HamburgerButton} from 'components/HamburgerButton';
 import FileBrowser from './FileBrowser';
 import Cache from './utils/cacheSystem';
 import { createClient } from '@supabase/supabase-js';
+import supabase from './utils/supabase';
+//const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
+//const supabaseAnonKey = process.env.REACT_APP_SUPABASE_PUBLISHABLE_KEY;
 
-const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
-const supabaseAnonKey = process.env.REACT_APP_SUPABASE_PUBLISHABLE_KEY;
-
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+//export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 // ─── Breadcrumb ────────────────────────────────────────────────────────────
 function Breadcrumb({ trail, breadCrumbOpen }) {

@@ -2,9 +2,17 @@ import {navData, resources} from '../constants/resourcesData';
 import {courseStyles, resourceStyles} from '../styles/componentStyles';
 import FileBrowser from '../FileBrowser';
 import React from 'react';
+import { useState, useEffect, useRef } from "react";
+import globalCache from '../utils/cacheSystem.js';
+import {fetchFileCountFromBucket} from "../services/fetchFileCountfromSupabaseBucket.js";
 /// ResourceGrid
 
-function ResourceGrid({ course, onSelect,  program }) {
+function ResourceGrid({ course, onSelect,  program, fileCountDict}) {
+    const basePath = 'pdf-files';
+    if (!fileCountDict){
+        console.log("Counting dictionary is null");
+        return;
+        }
   return (
     <div>
       <div className={courseStyles.courseHeader}>
@@ -24,7 +32,8 @@ function ResourceGrid({ course, onSelect,  program }) {
           >
             <span className={resourceStyles.resourceIcon}>{r.icon}</span>
             <span className={resourceStyles.resourceLabel}>{r.label}</span>
-            <span className={resourceStyles.resourceCount}>{r.count} items</span>
+            <span className={resourceStyles.resourceCount}>
+                {Object.hasOwn(fileCountDict,r.key)?fileCountDict[r.key]:0 } items</span>
           </button>
         ))}
       </div>
@@ -34,6 +43,14 @@ function ResourceGrid({ course, onSelect,  program }) {
 
 // ─── Content Area ──────────────────────────────────────────────────────────
 export function ContentArea({ selected, supabase }) {
+    const [loading, setLoading] = useState(false);
+    const [fileCountDict, setFileCountDict] = useState(null);
+     useEffect(() => {
+        if (selected.course){
+            fetchFileCountFromBucket(selected.course, setLoading, setFileCountDict);
+        }
+
+  }, [selected]);
   if (!selected.course) {
     return (
       <div style={styles.placeholder}>
@@ -46,15 +63,28 @@ export function ContentArea({ selected, supabase }) {
   }
 
   if (!selected.resource) {
-    return (
+    return (<>
+        {loading ? (
+          <div className="flex p-2">
 
-        <div className="h-screen">
-      <ResourceGrid
-        course={selected.course}
-        onSelect={selected.onResourceSelect}
-        program = {selected.program}
-      />
-      </div>
+                <button className="flex justify-start item-center gap-2 rounded bg-blue-600 \
+                    px-2 py-2 font-bold text-white opacity-80 w-full" disabled>
+
+
+                    <svg className="h-5 w-10 animate-spin text-white" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2
+                        5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Loading...
+                </button>
+          </div>) :<ResourceGrid
+                    course={selected.course}
+                    onSelect={selected.onResourceSelect}
+                    program = {selected.program}
+                    fileCountDict={fileCountDict}/>
+        }
+      </>
     );
   }
 

@@ -7,7 +7,6 @@ export function App() {
 
   return (
       //<FileBrowser />
-
       <MBANavbar />
 
   );
