@@ -34,12 +34,15 @@ export default function MBANavbar() {
   const [mbaOpen, setMbaOpen] = useState(false);
   const [mastersOpen, setMastersOpen] = useState(false);
   const [resumeOpen, setResumeOpen] = useState(false);
+  const [resourceOpen, setResourceOpen] = useState(false);
   const [trail, setTrail]     = useState(["Home"]);
   const [course, setCourse]   = useState(null);
   const [resource, setResource] = useState(null);
   const [breadCrumbOpen, setBreadCrumbOpen] = useState(true);
   const navRef = useRef(null);
   const [program, setProgram] = useState(null);
+  const navComponents = [[mastersOpen, setMastersOpen, "MASTERS"], [mbaOpen, setMbaOpen,"MBA"],
+  [resumeOpen, setResumeOpen,"Resume"], [resourceOpen, setResourceOpen, "Resource"]];
 
   // Close dropdown on outside click
   useEffect(() => {
@@ -48,6 +51,7 @@ export default function MBANavbar() {
          setMbaOpen(false);
          setMastersOpen(false);
          setResumeOpen(false);
+         setResourceOpen(false);
 
       }
     }
@@ -59,7 +63,8 @@ export default function MBANavbar() {
     setCourse(selectedCourse);
     setResource(null);
     setTrail([<div className="text-blue-600 cursor-pointer underline"
-        onClick={() => resetTohome(selectedCourse.program)}>Home</div>, selectedCourse.program, selectedCourse.semLabel, selectedCourse.name]);
+        onClick={() => resetTohome(selectedCourse.program)}>Home</div>,
+        selectedCourse.program, selectedCourse.semLabel, selectedCourse.name]);
     //setMbaOpen(false);
     selectedCourse.onOpen(false);
   }
@@ -74,7 +79,8 @@ export default function MBANavbar() {
   function handleResourceSelect(selectedResource, program) {
     setResource(selectedResource);
     setTrail([<div className="text-blue-600 cursor-pointer underline"
-        onClick={() => resetTohome(program)}>Home</div>, program, course.semLabel, <div className="text-blue-600 cursor-pointer underline"
+        onClick={() => resetTohome(program)}>Home</div>, program, course.semLabel,
+        <div className="text-blue-600 cursor-pointer underline"
         onClick={() => handleCourseSelect(course)}>{course.name}</div>,
         selectedResource.label]);
   }
@@ -96,12 +102,17 @@ export default function MBANavbar() {
         <div style={{ position: "relative" }}>
           <button
             className={navbarStyles.navBtn(mastersOpen)}
-            onClick={() =>
-                {
-                    mbaOpen ? setMbaOpen((o) => !o): null;
-                    resumeOpen ? setResumeOpen((o) => !o) : null;
-                    setMastersOpen((o) => !o);
-                    setProgram("MASTERS")
+            onClick={() =>{
+                    for (let i = 0; i < navComponents.length; i++) {
+                        if (navComponents[i][2] !== "MASTERS"){
+                                navComponents[i][0]? navComponents[i][1]((o) => !o): null;
+                            }
+                        else{
+                                navComponents[i][1]((o) => !o);
+                                setProgram(navComponents[i][2]);
+                            }
+
+                    }
                 }
             }
             //onMouseEnter={(e) => setMastersOpen(true)}
@@ -121,12 +132,17 @@ export default function MBANavbar() {
         <div style={{ position: "relative" }}>
           <button
             className={navbarStyles.navBtn(mbaOpen)}
-            onClick={() =>
-                {
-                    mastersOpen ? setMastersOpen((o) => !o): null;
-                    resumeOpen ? setResumeOpen((o) => !o) : null;
-                    setMbaOpen((o) => !o);
-                    setProgram("MBA");
+            onClick={() =>{
+                    for (let i = 0; i < navComponents.length; i++) {
+                        if (navComponents[i][2] !== "MBA"){
+                                   navComponents[i][0]? navComponents[i][1]((o) => !o): null;
+
+                            }
+                        else{
+                                navComponents[i][1]((o) => !o);
+                                setProgram(navComponents[i][2]);
+                            }
+                    }
                 }
             }
             //onMouseEnter={(e) => setMbaOpen(true)}
@@ -146,10 +162,15 @@ export default function MBANavbar() {
             className={navbarStyles.navBtn(resumeOpen)}
             onClick={() =>
                 {
-                    mastersOpen ? setMastersOpen((o) => !o): null;
-                    mbaOpen ? setMbaOpen((o) => !o) : null;
-                    setResumeOpen((o) => !o);
-                    setProgram("Resume");
+                    for (let i = 0; i < navComponents.length; i++) {
+                        if (navComponents[i][2] !== "Resume"){
+                                   navComponents[i][0]? navComponents[i][1]((o) => !o): null;
+                            }
+                        else{
+                                navComponents[i][1]((o) => !o);
+                                setProgram(navComponents[i][2]);
+                            }
+                        }
                 }
             }
             //onMouseEnter={(e) => setMbaOpen(true)}
@@ -162,17 +183,61 @@ export default function MBANavbar() {
 
          {resumeOpen &&(
              <SemesterDropdown onCourseSelect={handleCourseSelect} program={"Resume"} onOpen={setResumeOpen} />)}
+
+        </div>
+        <div style={{ position: "relative" }}>
+          <button
+            className={navbarStyles.navBtn(resumeOpen)}
+            onClick={() =>
+                {
+                    for (let i = 0; i < navComponents.length; i++) {
+                        if (navComponents[i][2] !== "Resource"){
+
+                                        navComponents[i][0]? navComponents[i][1]((o) => !o): null;
+
+                            }
+                        else{
+                                navComponents[i][1]((o) => !o);
+                                setProgram(navComponents[i][2]);
+                            }
+                        }
+                    //mastersOpen ? setMastersOpen((o) => !o): null;
+                    //mbaOpen ? setMbaOpen((o) => !o) : null;
+                    //setResourceOpen((o) => !o);
+                    //setProgram("Resource");
+                }
+            }
+            //onMouseEnter={(e) => setMbaOpen(true)}
+            //onMouseLeave={(e) => setMbaOpen(false)}
+            aria-haspopup="true"
+            aria-expanded={resourceOpen}
+          >
+            Resource {/*<span style={styles.chevron}>{mbaOpen ? "▲" : "▼"}</span>*/}
+          </button>
+
+         {resourceOpen &&(
+             <SemesterDropdown onCourseSelect={handleCourseSelect} program={"Resource"} onOpen={setResourceOpen} />)}
+
         </div>
 
         {/* Other nav links */}
-        {["Resource", "Research","Dashboard", "Schedule"].map((item) => (
+        {["Research","Dashboard", "Schedule"].map((item) => (
           <button
             key={item}
             className = {navbarStyles.navBtn(resumeOpen)}
             onClick = {() =>{
-                        mastersOpen ? setMastersOpen((o) => !o): null;
-                        mbaOpen ? setMbaOpen((o) => !o) : null;
-                        resumeOpen? setResumeOpen((o) => !o) :null;
+                        /*for (let i = 0; i < navComponents.length; i++) {
+                            if (navComponents[i][0] !== item){
+                                navComponents[i][0] ? navComponents[i][1]((o) => !o): null;
+                            }
+                            else{
+                                navComponents[i][1]((o) => !o);
+                                setProgram(navComponents[i][0]);
+                            }
+                        }*/
+                        //mastersOpen ? setMastersOpen((o) => !o): null;
+                        //mbaOpen ? setMbaOpen((o) => !o) : null;
+                        //resumeOpen? setResumeOpen((o) => !o) :null;
                 }
             }
             onMouseEnter={(e) => (e.currentTarget.style.color = "#534AB7")}

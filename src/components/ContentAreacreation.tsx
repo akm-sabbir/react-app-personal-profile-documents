@@ -57,12 +57,14 @@ export function ContentArea({ selected, supabase }) {
       </div>
     );
   }
+
+   if (selected.course.category.toLowerCase() === selected.resource.key.toLowerCase()){
+        return (<React.Fragment><FileBrowser course={selected.course} supabase={supabase}/> </React.Fragment>) ;
+        }
     console.log("selected Resource key", selected.resource.key, selected.course.code);
-  return <div>
-    {selected.course.code !== 'R101' && selected.resource.key === 'lectures'?
-        (<React.Fragment><FileBrowser course={selected.course} supabase={supabase}/> </React.Fragment>) :
-        (selected.resource.key === 'resume' && selected.course.code === 'R101'?
-        (<React.Fragment><FileBrowser course={selected.course} supabase={supabase}/> </React.Fragment>):
+  return ( <div>
+
+
      ( <><div className={courseStyles.courseHeader}>
         <span className={courseStyles.courseCode}>{selected.course.code}</span>
         <span className={courseStyles.courseSem}>{selected.course.semLabel}</span>
@@ -77,10 +79,9 @@ export function ContentArea({ selected, supabase }) {
           {selected.resource.label} content for{" "}
           <strong>{selected.course.name}</strong>
         </p>
-      </div> </>
-     ))
-    }
-    </div>
+      </div> </>)
+
+    </div>);
 
 }
 

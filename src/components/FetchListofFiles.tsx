@@ -125,12 +125,13 @@ function TruncatedButton({ label, onClick }) {
         onSelectUpdate, selectedFile, toggleSidebar, toggleSideButtonLoc, isSidebarOpen}) => {
 
         const inlineStyle = { top: `${toggleSideButtonLoc}px` };
-            return (
-            <div className="1fr shadow sidebar-content">
-            <div className="border rounded-2xl border-orange-300 sidebar-inner-wrapper">
+        return (
+
+        <div className="1fr shadow sidebar-content">
+        <div className="border rounded-2xl border-orange-300 sidebar-inner-wrapper">
         <div className="p-2">
-       <h2 className="w-[220px] text-2xl font-semibold mb-2 text-center justify-center
-         border-4 border-dashed border-orange-300 rounded-lg text-green-500"> Documents</h2>
+            <h2 className="w-[220px] text-2xl font-semibold mb-2 text-center justify-center
+                border-4 border-dashed border-orange-300 rounded-lg text-green-500"> Documents</h2>
       {loading && (
           <div className="flex p-2">
           {/* Use className instead of class for React */}
@@ -144,29 +145,15 @@ function TruncatedButton({ label, onClick }) {
          5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
         </svg>
             Loading...
-      </button>
-</div>
-)}
- {/*(<div><p className="text-red-500 text-2lg mb-2 font-bold text-center">Files are Loading</p></div>)}*/}
-     {(error) ? (<div><p className="text-red-500 text-lg mb-2">{error}</p></div>):
+      </button></div>)}
+
+    {error && (<div><p className="text-red-500 text-lg mb-2">{error}</p></div>)}
+    {/*(<div><p className="text-red-500 text-2lg mb-2 font-bold text-center">Files are Loading</p></div>)}*/}
+     { currentFiles.length > 0?
         ( <React.Fragment>
             <div className="space-y-2">
             {currentFiles.map((file) => (
             <div key={file.id} className="list-none space-y-2">{/*file.url*/}
-            {/*<SidebarItem fullName={file.name} onClick={() => onSelectUpdate(file.name)}
-                 file={file} selectedFile={selectedFile} /> */}
-             {/* <button
-                type="button"
-                className={`w-[200px] truncate overflow-hidden whitespace-nowrap text-left p-2 rounded border transition
-                    ${selectedFile === file
-                    ? "bg-blue-100 border-blue-400"
-                    : "hover:bg-green-500 border-transparent"
-                }`}
-                onClick={() => onSelectUpdate(file.name)}>
-                {file.name}
-              </button>
-              <TruncatedButton  label={file.name}
-                    onClick={() => onSelectUpdate(file.name)}/>*/}
                     <Tooltip text={file.name} position="top" onClick={() => onSelectUpdate(file.name)}>
                         <button  style={{width:"100%", display:"block"
                         }}  >
@@ -174,29 +161,22 @@ function TruncatedButton({ label, onClick }) {
                       </button>
                     </Tooltip>
             </div>
-          ))}
-
-         </div>
+          ))}</div>
 
         {/* File Pagination */}
        <div className="flex justify-between mt-4">
         <Button value={"Prev"} className={"text-blue-600 px-3 py-1 border border-orange-300 rounded \
              disabled:opacity-50 hover:bg-orange-300 hover:border-transparent cursor-pointer"}
         onClick={onPageBackwardUpdate} disabledCond={currentPage === 1 }/>
-
           <span className="text-sm">
             Page  {currentPage} of {totalPages}
           </span>
-
           <Button
             value={ "Next"} className={"text-blue-600 px-3 py-1 border border-orange-300 rounded \
                 disabled:opacity-50 hover:bg-orange-300 hover:border-transparent cursor-pointer"}
             onClick={onPageForwardUpdate} disabledCond={currentPage === totalPages}/>
-
         </div>
-
-        </React.Fragment>
-        )
+        </React.Fragment>):(!loading && <div><p className="text-red-500 text-2lg mb-2 font-bold text-center">No Files Available</p></div>)
      }
         </div>
         </div>
@@ -208,5 +188,5 @@ function TruncatedButton({ label, onClick }) {
         >   {isSidebarOpen ? '◀' : '▶'}
         </button>
        </div>
-      );
+      )
     }
