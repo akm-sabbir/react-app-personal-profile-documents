@@ -226,18 +226,15 @@ export default function MBANavbar() {
             key={item}
             className = {navbarStyles.navBtn(resumeOpen)}
             onClick = {() =>{
-                        /*for (let i = 0; i < navComponents.length; i++) {
-                            if (navComponents[i][0] !== item){
+                        for (let i = 0; i < navComponents.length; i++) {
+                            if (navComponents[i][2] !== item){
                                 navComponents[i][0] ? navComponents[i][1]((o) => !o): null;
                             }
                             else{
                                 navComponents[i][1]((o) => !o);
                                 setProgram(navComponents[i][0]);
                             }
-                        }*/
-                        //mastersOpen ? setMastersOpen((o) => !o): null;
-                        //mbaOpen ? setMbaOpen((o) => !o) : null;
-                        //resumeOpen? setResumeOpen((o) => !o) :null;
+                        }
                 }
             }
             onMouseEnter={(e) => (e.currentTarget.style.color = "#534AB7")}
