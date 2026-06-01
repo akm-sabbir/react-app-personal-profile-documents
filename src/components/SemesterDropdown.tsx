@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
-import {navData, resources, mastersNavData, resumeNavData, resourceNavData} from '../constants/resourcesData';
+import {navData, resources, mastersNavData, resumeNavData, resourceNavData, researchNavData} from '../constants/resourcesData';
 import {dropdownStyles, flyoutStyles} from '../styles/componentStyles';
+
+const dataSetList = [["MASTERS", mastersNavData], ["MBA", navData], ["Resume", resumeNavData],
+["Resource",resourceNavData], ["Research",researchNavData]]
 function CourseFlyout({ courses, onSelect }) {
   return (
     <div className={flyoutStyles.flyout}>
@@ -51,13 +54,16 @@ function NavMap({navData, onCourseSelect, program, onOpen}){
 export function SemesterDropdown({ onCourseSelect, program, onOpen }) {
 
   console.log("We are here starting dropdown,", onCourseSelect, program);
-
-    if (program === "MASTERS")
+    for (let i = 0; i < dataSetList.length; i++) {
+        if (program === dataSetList[i][0]){
         return(<>
-                <NavMap navData={mastersNavData} onCourseSelect={onCourseSelect} program={program} onOpen={onOpen} />
+                <NavMap navData={dataSetList[i][1]} onCourseSelect={onCourseSelect} program={program} onOpen={onOpen} />
                 </>
             );
+        }
+    }
 
+{/*
     if (program === "MBA")
         return(<>
                 <NavMap navData={navData} onCourseSelect={onCourseSelect} program={program} onOpen={onOpen} />
@@ -73,7 +79,7 @@ export function SemesterDropdown({ onCourseSelect, program, onOpen }) {
     return(<>
                 <NavMap navData={resourceNavData} onCourseSelect={onCourseSelect} program={program} onOpen={onOpen} />
                 </>
-            );
+            );*/}
 
 }
 

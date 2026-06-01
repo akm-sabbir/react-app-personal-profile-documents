@@ -46,6 +46,8 @@ export const resources = [
   { key: "blogging",     icon: "📊", label: "Blogging",     count: 5  },
   { key: "projects",    icon: "📋", label: "Projects",    count: 1  },
   { key: "resume",      icon: "📋", label: "Resume",    count: 2  },
+  { key: "presentation",      icon: "📋", label: "Presentation",    count: 2  },
+  { key: "publication",      icon: "📋", label: "Paper",    count: 2  },
 ];
 
 export const mastersNavData = [
@@ -126,6 +128,32 @@ export const resumeNavData = [
       { code: "RES201", name: "Philosophy",category:"books" },
       { code: "RES202", name: "Social Science",category:"books" },
       { code: "RES203", name: "Geo Politics",category:"books" },
+    ],
+  }
+  ];
+
+  export const researchNavData = [
+  {
+    id: "inv1",
+    label: "Presentation",
+    courses: [
+      { code: "INV101", name: "Math", category:"presentation" },
+
+    ],
+  },
+  {
+    id: "inv3",
+    label: "Blogging",
+    courses: [
+      { code: "INV301", name: "Machine Learning", category:"blogging" },
+        ],
+
+  },{
+    id: "inv2",
+    label: "Publication",
+    courses: [
+      { code: "INV201", name: "Paper",category:"publication" },
+      { code: "INV203", name: "Journal",category:"publication" },
     ],
   }
   ];

@@ -28,6 +28,46 @@ function Breadcrumb({ trail, breadCrumbOpen }) {
     </nav>
   );
 }
+// -------- Nav Component ------------------------------
+function NavMenuComponent({navComponents, handleCourseSelect, componentOpen, onSetComponentOpen, comp, setProgram}){
+
+   return(
+
+       <div style={{ position: "relative" }}>
+          <button
+            className={navbarStyles.navBtn(componentOpen)}
+            onClick={() =>
+                {
+                    for (let i = 0; i < navComponents.length; i++) {
+                        if (navComponents[i][2] !== comp){
+
+                                        navComponents[i][0]? navComponents[i][1]((o) => !o): null;
+
+                            }
+                        else{
+                                navComponents[i][1]((o) => !o);
+                                setProgram(navComponents[i][2]);
+                            }
+                        }
+
+                }
+            }
+            //onMouseEnter={(e) => setMbaOpen(true)}
+            //onMouseLeave={(e) => setMbaOpen(false)}
+            aria-haspopup="true"
+            aria-expanded={componentOpen}
+          >
+            {comp} {/*<span style={styles.chevron}>{mbaOpen ? "▲" : "▼"}</span>*/}
+          </button>
+
+         {componentOpen &&(
+             <SemesterDropdown onCourseSelect={handleCourseSelect} program={comp} onOpen={onSetComponentOpen} />)}
+
+        </div>
+       );
+
+
+   }
 
 // ─── Main Navbar ───────────────────────────────────────────────────────────
 export default function MBANavbar() {
@@ -35,6 +75,7 @@ export default function MBANavbar() {
   const [mastersOpen, setMastersOpen] = useState(false);
   const [resumeOpen, setResumeOpen] = useState(false);
   const [resourceOpen, setResourceOpen] = useState(false);
+  const [researchOpen, setResearchOpen] = useState(false);
   const [trail, setTrail]     = useState(["Home"]);
   const [course, setCourse]   = useState(null);
   const [resource, setResource] = useState(null);
@@ -42,7 +83,7 @@ export default function MBANavbar() {
   const navRef = useRef(null);
   const [program, setProgram] = useState(null);
   const navComponents = [[mastersOpen, setMastersOpen, "MASTERS"], [mbaOpen, setMbaOpen,"MBA"],
-  [resumeOpen, setResumeOpen,"Resume"], [resourceOpen, setResourceOpen, "Resource"]];
+  [resumeOpen, setResumeOpen,"Resume"], [resourceOpen, setResourceOpen, "Resource"], [researchOpen, setResearchOpen, "Research"]];
 
   // Close dropdown on outside click
   useEffect(() => {
@@ -52,6 +93,7 @@ export default function MBANavbar() {
          setMastersOpen(false);
          setResumeOpen(false);
          setResourceOpen(false);
+         setResearchOpen(false);
 
       }
     }
@@ -99,129 +141,19 @@ export default function MBANavbar() {
         </div>
         <div className={brandStyles.brand}>🎓 Sabbir's Portal</div>
 
-        <div style={{ position: "relative" }}>
-          <button
-            className={navbarStyles.navBtn(mastersOpen)}
-            onClick={() =>{
-                    for (let i = 0; i < navComponents.length; i++) {
-                        if (navComponents[i][2] !== "MASTERS"){
-                                navComponents[i][0]? navComponents[i][1]((o) => !o): null;
-                            }
-                        else{
-                                navComponents[i][1]((o) => !o);
-                                setProgram(navComponents[i][2]);
-                            }
 
-                    }
-                }
-            }
-            //onMouseEnter={(e) => setMastersOpen(true)}
-            //onMouseLeave={(e) => setMastersOpen(false)}
-            aria-haspopup="true"
-            aria-expanded={mastersOpen}
-          >  Master's {/*<span style={styles.chevron}>{mastersOpen ? "▲" : "▼"}</span>*/}
-          </button>
-
-          {mastersOpen && (
-            <SemesterDropdown onCourseSelect={handleCourseSelect} program={"MASTERS"} onOpen={setMastersOpen}/>
-          )}
-        </div>
-
-        {/* MBA Dropdown Trigger */}
-
-        <div style={{ position: "relative" }}>
-          <button
-            className={navbarStyles.navBtn(mbaOpen)}
-            onClick={() =>{
-                    for (let i = 0; i < navComponents.length; i++) {
-                        if (navComponents[i][2] !== "MBA"){
-                                   navComponents[i][0]? navComponents[i][1]((o) => !o): null;
-
-                            }
-                        else{
-                                navComponents[i][1]((o) => !o);
-                                setProgram(navComponents[i][2]);
-                            }
-                    }
-                }
-            }
-            //onMouseEnter={(e) => setMbaOpen(true)}
-            //onMouseLeave={(e) => setMbaOpen(false)}
-            aria-haspopup="true"
-            aria-expanded={mbaOpen}
-          >
-            MBA {/*<span style={styles.chevron}>{mbaOpen ? "▲" : "▼"}</span>*/}
-          </button>
-
-          {mbaOpen && (
-            <SemesterDropdown onCourseSelect={handleCourseSelect} program={"MBA"} onOpen={setMbaOpen} />
-          )}
-            </div>
-          <div style={{ position: "relative" }}>
-          <button
-            className={navbarStyles.navBtn(resumeOpen)}
-            onClick={() =>
-                {
-                    for (let i = 0; i < navComponents.length; i++) {
-                        if (navComponents[i][2] !== "Resume"){
-                                   navComponents[i][0]? navComponents[i][1]((o) => !o): null;
-                            }
-                        else{
-                                navComponents[i][1]((o) => !o);
-                                setProgram(navComponents[i][2]);
-                            }
-                        }
-                }
-            }
-            //onMouseEnter={(e) => setMbaOpen(true)}
-            //onMouseLeave={(e) => setMbaOpen(false)}
-            aria-haspopup="true"
-            aria-expanded={resumeOpen}
-          >
-            Resume {/*<span style={styles.chevron}>{mbaOpen ? "▲" : "▼"}</span>*/}
-          </button>
-
-         {resumeOpen &&(
-             <SemesterDropdown onCourseSelect={handleCourseSelect} program={"Resume"} onOpen={setResumeOpen} />)}
-
-        </div>
-        <div style={{ position: "relative" }}>
-          <button
-            className={navbarStyles.navBtn(resumeOpen)}
-            onClick={() =>
-                {
-                    for (let i = 0; i < navComponents.length; i++) {
-                        if (navComponents[i][2] !== "Resource"){
-
-                                        navComponents[i][0]? navComponents[i][1]((o) => !o): null;
-
-                            }
-                        else{
-                                navComponents[i][1]((o) => !o);
-                                setProgram(navComponents[i][2]);
-                            }
-                        }
-                    //mastersOpen ? setMastersOpen((o) => !o): null;
-                    //mbaOpen ? setMbaOpen((o) => !o) : null;
-                    //setResourceOpen((o) => !o);
-                    //setProgram("Resource");
-                }
-            }
-            //onMouseEnter={(e) => setMbaOpen(true)}
-            //onMouseLeave={(e) => setMbaOpen(false)}
-            aria-haspopup="true"
-            aria-expanded={resourceOpen}
-          >
-            Resource {/*<span style={styles.chevron}>{mbaOpen ? "▲" : "▼"}</span>*/}
-          </button>
-
-         {resourceOpen &&(
-             <SemesterDropdown onCourseSelect={handleCourseSelect} program={"Resource"} onOpen={setResourceOpen} />)}
-
-        </div>
-
+        {<NavMenuComponent navComponents={navComponents} handleCourseSelect={handleCourseSelect}
+        componentOpen={mastersOpen} onSetComponentOpen={setMastersOpen} comp={"MASTERS"} setProgram={setProgram}/>}
+        {<NavMenuComponent navComponents={navComponents} handleCourseSelect={handleCourseSelect}
+        componentOpen={mbaOpen} onSetComponentOpen={setMbaOpen} comp={"MBA"} setProgram={setProgram}/>}
+        {<NavMenuComponent navComponents={navComponents} handleCourseSelect={handleCourseSelect}
+        componentOpen={resumeOpen} onSetComponentOpen={setResumeOpen} comp={"Resume"} setProgram={setProgram}/>}
+        {<NavMenuComponent navComponents={navComponents} handleCourseSelect={handleCourseSelect}
+        componentOpen={resourceOpen} onSetComponentOpen={setResourceOpen} comp={"Resource"} setProgram={setProgram}/>}
+        {<NavMenuComponent navComponents={navComponents} handleCourseSelect={handleCourseSelect}
+        componentOpen={researchOpen} onSetComponentOpen={setResearchOpen} comp={"Research"} setProgram={setProgram}/>}
         {/* Other nav links */}
-        {["Research","Dashboard", "Schedule"].map((item) => (
+        {["Dashboard", "Schedule"].map((item) => (
           <button
             key={item}
             className = {navbarStyles.navBtn(resumeOpen)}
@@ -258,7 +190,8 @@ export default function MBANavbar() {
           }} supabase={supabase}
         />
 
-      </div>}
+      </div>
+    }
     </div>
   );
 }
