@@ -3,7 +3,7 @@ import {ListofFiles} from "components/FetchListofFiles";
 import {fileFetch} from "services/useFileFetch";
 import {fetchDataFromBucket} from "services/fetchDatafromSupabaseBucket";
 import {PdfViewer} from "./components/PdfViewer";
-import {PdfReader} from "./components/PdfViewer";
+import {PdfViewerwithSidebar} from "./components/PdfViewerwithSidebar";
 import "./index.css";
 
 // Required for react-pdf

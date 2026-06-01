@@ -1,0 +1,135 @@
+/* Container Layout */
+.pdf-app-container {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: #f8f9fa;
+}
+
+/* Sidebar Design */
+.pdf-sidebar {
+  width: 280px;
+  height: 100%;
+  background-color: #ffffff;
+  border-right: 1px solid #e9ecef;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, margin-left 0.2s ease;
+}
+
+.pdf-sidebar.closed {
+  margin-left: -280px;
+  transform: translateX(-100%);
+}
+
+.sidebar-header {
+  padding: 8px;
+  border-bottom: 1px solid #e9ecef;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sidebar-header h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #343a40;
+}
+
+.sidebar-content_pdf {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px;
+}
+
+/* Styling the React-PDF Nested Outline Tree */
+.pdf-outline-tree ul {
+  list-style-type: none;
+  padding-left: 14px;
+  margin: 4px 0;
+}
+
+.pdf-outline-tree > ul {
+  padding-left: 0; /* Remove padding from outer root layer */
+}
+
+.pdf-outline-tree li {
+  margin: 6px 0;
+}
+
+/* Custom styling target for the text links outputted inside the list tags */
+.pdf-outline-tree a {
+  color: #495057;
+  text-decoration: none;
+  font-size: 0.9rem;
+  display: block;
+  padding: 6px 8px;
+  border-radius: 4px;
+  transition: background 0.15s ease;
+}
+
+.pdf-outline-tree a:hover {
+  background-color: #f1f3f5;
+  color: #0d6efd;
+  cursor: pointer;
+}
+
+/* Main Viewer Section */
+.pdf-main-viewer {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.viewer-toolbar {
+  height: 56px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e9ecef;
+  padding: 0 10px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.document-scroll-viewport {
+  flex: 1;
+  overflow: auto;
+  padding: 24px;
+  display: flex;
+  justify-content: center;
+  background-color: #e9ecef;
+}
+
+/* Functional Component UI Buttons */
+.toolbar-btn, .toggle-btn, .pagination-controls button {
+  background: #ffffff;
+  color: #212529;
+  border: 1px solid #ced4da;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.toolbar-btn:hover, .pagination-controls button:not(:disabled):hover {
+  background-color: #f1f3f5;
+  border-color: #b1bbc4;
+}
+
+.pagination-controls button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.status-msg {
+  padding: 20px;
+  font-weight: 500;
+  color: #6c757d;
+}
+
+.status-msg.error {
+  color: #dc3545;
+}
