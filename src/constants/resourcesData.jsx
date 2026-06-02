@@ -121,6 +121,7 @@ export const resumeNavData = [
       { code: "RES303", name: "Physics",category:"books" },
       { code: "RES304", name: "Machine Learning",category:"books" },
       { code: "RES305", name: "Optimization",category:"books" },
+      { code: "RES306", name: "Algorithm",category:"books" },
         ],
 
   },{

@@ -162,7 +162,9 @@ const topStyles = {
                 <aside className={`pdf-sidebar min-w-[280px] ${sidebarOpen ? 'open' : 'closed'}`}>
                     <div className="pdf-sidebar-header">
                         <h3>Table of Contents</h3>
-                        <button className="toggle-btn" onClick={() => setSidebarOpen(false)}>☰</button>
+
+                        <button className="toggle-btn border text-blue-600 border border-orange-300 rounded"
+                        onClick={() => setSidebarOpen(false)}>☰</button>
                     </div>
 
                     <div className="sidebar-content_pdf">
@@ -178,13 +180,15 @@ const topStyles = {
         <main className="pdf-main-viewer">
                 <header className="viewer-toolbar">
                     {!sidebarOpen && (
-                            <button className="toolbar-btn min-w-[150px]  self-center" onClick={() => setSidebarOpen(true)}>
+                            <button className="toolbar-btn min-w-[150px]
+                             self-center text-blue-600 border border border-orange-300 rounded"
+                                onClick={() => setSidebarOpen(true)}>
                                ▶ Show Outline
                             </button>
                         )}
 
                   <div className="pagination-controls grid grid-cols-3 items-center justify-center w-full" >
-                        <button  className="justify-self-start"
+                        <button  className="text-blue-600 justify-self-start border border border-orange-300 rounded"
                         disabled={currentPdfPage <= 1} onClick={() => setCurrentPdfPage(p => p - 1)}>Prev</button>
 
                                     <span  style= {topStyles.centerItem} className="text-blue-600 justify-self-center">
@@ -193,7 +197,9 @@ const topStyles = {
                 of {numPages || 1}
               </span>
 
-                        <button  className="justify-self-end" disabled={currentPdfPage >= numPages} onClick={() => setCurrentPdfPage(p => p + 1)}>Next</button>
+                        <button  className="text-blue-600 justify-self-end border border border-orange-300 rounded"
+                        disabled={currentPdfPage >= numPages}
+                        onClick={() => setCurrentPdfPage(p => p + 1)}>Next</button>
                 </div>
 
                 </header>
@@ -212,7 +218,8 @@ const topStyles = {
               error={<p className="text-red-500">Failed to load PDF</p>}
               >
                <div className="flex flex-row gap-4 w-max">
-                    <Page pageNumber={currentPdfPage}  scale={scale} size="A4" style={pdfstyles.page} renderAnnotationLayer={false}
+                    <Page pageNumber={currentPdfPage}  scale={scale} size="A4"
+                    style={pdfstyles.page} renderAnnotationLayer={false}
                     renderTextLayer={true} />
                </div>
             </Document>

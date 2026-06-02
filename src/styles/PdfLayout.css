@@ -106,8 +106,6 @@
 /* Functional Component UI Buttons */
 .toolbar-btn, .toggle-btn, .pagination-controls button {
   background: #ffffff;
-  color: #212529;
-  border: 1px solid #ced4da;
   padding: 6px 12px;
   border-radius: 4px;
   cursor: pointer;
