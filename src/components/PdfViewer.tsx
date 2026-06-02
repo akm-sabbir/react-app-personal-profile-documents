@@ -58,7 +58,7 @@ const pdfAppContainer = {
   //width: '100vw',
   alignItems: 'center',
   height: '100vh',
-  overflow: 'hidden',
+  //overflow: 'hidden',
   fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
   backgroundColor: '#f8f9fa'
 };
@@ -159,7 +159,7 @@ const topStyles = {
 
         <React.Fragment>
           <div style={pdfAppContainer} >{/*{viewerStyles}>*/}
-                <aside className={`pdf-sidebar ${sidebarOpen ? 'open' : 'closed'}`}>
+                <aside className={`pdf-sidebar min-w-[280px] ${sidebarOpen ? 'open' : 'closed'}`}>
                     <div className="sidebar-header">
                         <h3>Table of Contents</h3>
                         <button className="toggle-btn" onClick={() => setSidebarOpen(false)}>☰</button>
@@ -197,21 +197,24 @@ const topStyles = {
                 </div>
 
                 </header>
-            <div className="document-scroll-viewport">
+            <div className="document-scroll-viewport  overflow-y-auto">
             <Document
               file= {pdfUrl}//{`${previewUrl}`} //{`${LOCAL_FILE_FETCH}${selectedFile}`}
               onLoadSuccess={( {numPages} ) => {
                             setNumPages(numPages);
                             setCurrentPdfPage(1);
               }}
-              loading={<p>Loading PDF...</p>}
+              loading={<div className="status-msg">Streaming document content...</div>}
+              error={<div className="status-msg error">Invalid or missing PDF data.</div>}
               onLoadError={(error) => {
                         console.log("PDF Load Error:", error);
               }}
               error={<p className="text-red-500">Failed to load PDF</p>}
               >
-            <Page pageNumber={currentPdfPage}  scale={scale} size="A4" style={pdfstyles.page} renderAnnotationLayer={false}
-              renderTextLayer={true} />
+               <div className="flex flex-row gap-4 w-max">
+                    <Page pageNumber={currentPdfPage}  scale={scale} size="A4" style={pdfstyles.page} renderAnnotationLayer={false}
+                    renderTextLayer={true} />
+               </div>
             </Document>
             </div>
             </main>

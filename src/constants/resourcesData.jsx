@@ -152,7 +152,7 @@ export const resumeNavData = [
     id: "inv2",
     label: "Publication",
     courses: [
-      { code: "INV201", name: "Paper",category:"publication" },
+      { code: "INV201", name: "Conference Paper",category:"publication" },
       { code: "INV203", name: "Journal",category:"publication" },
     ],
   }

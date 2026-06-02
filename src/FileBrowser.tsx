@@ -8,7 +8,7 @@ import "./index.css";
 
 // Required for react-pdf
 
-function FileBrowser({course, supabase}) {
+function FileBrowser({course, category, supabase}) {
 
   const [selectedFile, setSelectedFile] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
@@ -25,7 +25,7 @@ function FileBrowser({course, supabase}) {
 
   useEffect(() => {
    // fileFetch(setFiles, setError, setLoading, course, setSemester, setCourseCode)();
-   fetchDataFromBucket(supabase, course, setFiles, setLoading, setSemester, setCourseCode, setError);
+   fetchDataFromBucket(supabase, course, category, setFiles, setLoading, setSemester, setCourseCode, setError);
   }, []);
   useEffect(() => {
     console.log("mounted");
@@ -107,7 +107,7 @@ const toggleSidebar = () => {
                 isSidebarOpen={isSidebarOpen}
                 />
                 <PdfViewer selectedFile={selectedFile} selectedSemester={semester} selectedCode={courseCode}
-                supabase={supabase} category={course.category}/>
+                supabase={supabase} category={category}/>
             </div>
         </div>
     </div>

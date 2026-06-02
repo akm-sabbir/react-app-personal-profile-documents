@@ -90,7 +90,7 @@ export function ContentArea({ selected, supabase }) {
 
    {/*if (selected.course.category.toLowerCase() === selected.resource.key.toLowerCase()){*/}
    if (Object.hasOwn(fileCountDict,selected.resource.key) && fileCountDict[selected.resource.key] > 0){
-        return (<React.Fragment><FileBrowser course={selected.course} supabase={supabase}/> </React.Fragment>) ;
+        return (<React.Fragment><FileBrowser course={selected.course} category ={selected.resource.key} supabase={supabase}/> </React.Fragment>) ;
         }
     console.log("selected Resource key", selected.resource.key, selected.course.code);
   return ( <div>

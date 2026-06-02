@@ -1,13 +1,13 @@
 import globalCache from '../utils/cacheSystem.js';
 
-export function fetchDataFromBucket(supabase, course, setFiles, setLoading, onSetSemester, onSetCode, setError){
+export function fetchDataFromBucket(supabase, course, category, setFiles, setLoading, onSetSemester, onSetCode, setError){
     const repository = "academic-resources";
     const root = "pdf-files";
     setLoading(true);
-    console.log("Final path", `${root}/${course.semLabel}/${course.code}/${course.category}`);
+    console.log("Final path", `${root}/${course.semLabel}/${course.code}/${category}`);
         const listPdfFilesFromSupabaseBucket = async () => {
-        if(globalCache.has(`${root}/${course.semLabel}/${course.code}/${course.category}`)){
-            const pdfFilesOnly = globalCache.get(`${root}/${course.semLabel}/${course.code}/${course.category}`);
+        if(globalCache.has(`${root}/${course.semLabel}/${course.code}/${category}`)){
+            const pdfFilesOnly = globalCache.get(`${root}/${course.semLabel}/${course.code}/${category}`);
             setFiles(pdfFilesOnly);
             onSetSemester(course.semLabel.trim());
             onSetCode(course.code.trim());
@@ -19,14 +19,14 @@ export function fetchDataFromBucket(supabase, course, setFiles, setLoading, onSe
             const { data, error } = await supabase
                 .storage
                 .from(repository)
-                .list(`${root}/${course.semLabel}/${course.code}/${course.category}`, {
+                .list(`${root}/${course.semLabel}/${course.code}/${category}`, {
                 limit: 100,
                 sortBy: { column: 'name', order: 'asc' },
             });
 
         // Filter out any subdirectories or non-pdf items natively
         const pdfFilesOnly = data.filter(item => item.name.toLowerCase().endsWith('.pdf'));
-        globalCache.set(`${root}/${course.semLabel}/${course.code}/${course.category}`, pdfFilesOnly, 3600);
+        globalCache.set(`${root}/${course.semLabel}/${course.code}/${category}`, pdfFilesOnly, 3600);
         setFiles(pdfFilesOnly);
         onSetSemester(course.semLabel.trim());
         onSetCode(course.code.trim());
