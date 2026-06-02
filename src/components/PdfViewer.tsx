@@ -160,7 +160,7 @@ const topStyles = {
         <React.Fragment>
           <div style={pdfAppContainer} >{/*{viewerStyles}>*/}
                 <aside className={`pdf-sidebar min-w-[280px] ${sidebarOpen ? 'open' : 'closed'}`}>
-                    <div className="sidebar-header">
+                    <div className="pdf-sidebar-header">
                         <h3>Table of Contents</h3>
                         <button className="toggle-btn" onClick={() => setSidebarOpen(false)}>☰</button>
                     </div>

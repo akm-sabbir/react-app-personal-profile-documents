@@ -77,23 +77,8 @@ const toggleSidebar = () => {
 
   return (
 
-<div className="grid grid-rows-[30px_1fr] h-screen">{/* 45px_*/}
-  {/*<div className="h-16 w-full">
-    <nav className="flex items-center justify-between p-4 shadow-lg">
-      <div className="font-bold text-xl px-12">MY DOCUMENTS</div>
-      <div className="space-x-4 -translate-x-8">
-
-        <a href="#" className="hover:text-orange-400" onClick={() => setSelectedFile(null)}>Home</a>
-        <a href="#" className="hover:text-orange-400">Engineering</a>
-        <a href="#" className="hover:text-orange-400">Research</a>
-        <a href="#" className="hover:text-orange-400">About</a>
-        <a href="#"
-         className="hover:text-orange-400"> Book Link </a>
-        <a href="#" className="hover:text-orange-400">Contact</a>
-      </div>
-    </nav>
-  </div>*/}
-
+<div className="grid grid-rows-[30px_1fr] h-screen">
+  
     <div className=" p-4">
         <div  className="flex items-center justify-center"> {/*h-full*/}
             <div ref={containerRef} className={`layout-grid  ${!isSidebarOpen ? 'sidebar-collapsed' : ''}`}>

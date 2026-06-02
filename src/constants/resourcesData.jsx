@@ -108,6 +108,8 @@ export const resumeNavData = [
       { code: "RES103", name: "Python", category:"books" },
       { code: "RES104", name: "React", category:"books" },
       { code: "RES105", name: "Distributed Computing", category:"books" },
+      { code: "RES106", name: "Web Engineering", category:"books" },
+      { code: "RES107", name: "Software Engineering", category:"books" },
     ],
   },
   {
