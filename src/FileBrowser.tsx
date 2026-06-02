@@ -21,14 +21,14 @@ function FileBrowser({course, category, supabase}) {
   const [filesPerPage, setFilesPerPage] = useState(8);
   const [toggleButtonLoc, setToggleButtonLoc] = useState(60);
   const containerRef = useRef(null);
+  const prevHeight = useRef(0);
+
   // 2. Define the toggle function
 
   useEffect(() => {
    // fileFetch(setFiles, setError, setLoading, course, setSemester, setCourseCode)();
    fetchDataFromBucket(supabase, course, category, setFiles, setLoading, setSemester, setCourseCode, setError);
-  }, []);
-  useEffect(() => {
-    console.log("mounted");
+   console.log("mounted");
     return () => {
         console.log("unmounted");
     };
@@ -44,7 +44,12 @@ function FileBrowser({course, category, supabase}) {
         // Get available vertical height of the container
 
         const containerHeight = entry.contentRect.height-200;
+        if (Math.abs(containerHeight - prevHeight.current) <= 48) { // Only update if change is > 5px
+            return;
+        }
+
         setToggleButtonLoc(Math.floor((containerHeight +200)/2));
+        prevHeight.current = containerHeight;
         console.log("container height", containerHeight);
         // Target height of a single item including padding/gaps (e.g., 40px)
 

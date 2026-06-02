@@ -229,8 +229,9 @@ const topStyles = {
             {/* PDF Pagination */}
             <div className="flex justify-between mt-4">
               <Button
-                value={"Prev"} className={"text-blue-600 px-3 py-1 h-8 border border border-orange-300 rounded \
-                    disabled:opacity-50 hover:bg-orange-300 hover:border-transparent cursor-pointer"}
+                value={"Prev"} className={"text-blue-600 py-[6px] px-[12px] border border border-orange-300 rounded \
+                    disabled:opacity-50 hover:bg-orange-300 hover:border-transparent \
+                    disabled:cursor-not-allowed cursor-pointer"}
                 onClick={() => setCurrentPdfPage((p) => p - 1)} disabledCond={currentPdfPage <= 1}
               />
 
@@ -248,8 +249,9 @@ const topStyles = {
               </span>
                 */}
               <Button
-                value={"Next"} className={"px-3 text-blue-600 py-1 h-8 border border border-orange-300 rounded \
-                    disabled:opacity-50 hover:bg-orange-300 hover:border-transparent cursor-pointer"}
+                value={"Next"} className={"py-[6px] px-[12px] text-blue-600 border border \
+                    border-orange-300 rounded disabled:opacity-50 disabled:cursor-not-allowed \
+                    hover:bg-orange-300 hover:border-transparent cursor-pointer"}
                 onClick={() => setCurrentPdfPage((p) => p + 1)} disabledCond={currentPdfPage >= numPages}
               />
 

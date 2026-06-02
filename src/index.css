@@ -17,7 +17,7 @@
   .sidebar-collapsed {
     /* Collapsed: 0 parts sidebar, 5 parts main */
     grid-template-columns: 0px 1fr;
-
+    height: 100%;
   }
 
   .breadcrumb-collapsed{
