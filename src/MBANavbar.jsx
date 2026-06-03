@@ -129,7 +129,7 @@ export default function MBANavbar() {
   }
 
   return (
-    <div className="pdf-wrapper" >  {/*style={styles.wrapper}>*/}
+    <div className="pdf-wrapper overflow-auto" >  {/*style={styles.wrapper}>*/}
       {/* ── Top Nav Bar ── */}
       <nav className={navbarStyles.container} ref={navRef} aria-label="MBA Portal Navigation">
         {/* Brand */}

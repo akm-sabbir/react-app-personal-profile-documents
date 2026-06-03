@@ -10,7 +10,7 @@ export const navbarStyles = {
 
 export const brandStyles = {
   // ... your other styles
-  brand: "text-[15px] font-semibold text-[#1a1a1a] mr-6 tracking-[-0.3px]"
+  brand: "text-[15px] font-semibold text-[#1a1a1a] mr-6 tracking-[-0.3px] whitespace-nowrap"
 };
 
 export const dropdownStyles = {
