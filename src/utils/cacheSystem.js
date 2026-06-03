@@ -19,48 +19,48 @@ class Cache {
    * Retrieve data from the cache. Returns null if expired or missing.
    * @param {string} key
    */
-  get(key) {
-    const cachedItem = this.store.get(key);
+    get(key) {
+        const cachedItem = this.store.get(key);
 
-    if (!cachedItem) return null;
+        if (!cachedItem) return null;
 
-    // Check if the item has expired
-    if (Date.now() > cachedItem.expiresAt) {
-      this.store.delete(key); // Clean up memory immediately
-      return null;
+        // Check if the item has expired
+        if (Date.now() > cachedItem.expiresAt) {
+            this.store.delete(key); // Clean up memory immediately
+            return null;
+        }
+
+        return cachedItem.value;
     }
-
-    return cachedItem.value;
-  }
 
     has(key) {
-    const cachedItem = this.store.get(key);
+        const cachedItem = this.store.get(key);
 
-    // If it doesn't exist at all
-    if (!cachedItem) return false;
+        // If it doesn't exist at all
+        if (!cachedItem) return false;
 
-    // If it exists but has expired, wipe it and return false
-    if (Date.now() > cachedItem.expiresAt) {
-      this.store.delete(key);
-      return false;
+        // If it exists but has expired, wipe it and return false
+        if (Date.now() > cachedItem.expiresAt) {
+            this.store.delete(key);
+            return false;
+        }
+
+        // It exists and is valid
+        return true;
+    }
+    /**
+        * Manual eviction of a specific key
+    */
+    delete(key) {
+        this.store.delete(key);
     }
 
-    // It exists and is valid
-    return true;
-  }
-  /**
-   * Manual eviction of a specific key
-   */
-  delete(key) {
-    this.store.delete(key);
-  }
-
-  /**
-   * Completely wipe the cache
-   */
-  clear() {
-    this.store.clear();
-  }
+    /**
+    * Completely wipe the cache
+    */
+    clear() {
+        this.store.clear();
+    }
 }
 
 const globalCache = new Cache();

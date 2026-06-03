@@ -83,7 +83,7 @@ export default function MBANavbar() {
   const [breadCrumbOpen, setBreadCrumbOpen] = useState(true);
   const navRef = useRef(null);
   const [program, setProgram] = useState(null);
-  const navComponents = [[mastersOpen, setMastersOpen, "MASTERS"], [mbaOpen, setMbaOpen,"MBA"],
+  const navComponents = [[mastersOpen, setMastersOpen, "Masters"], [mbaOpen, setMbaOpen,"Mba"],
   [resumeOpen, setResumeOpen,"Resume"], [resourceOpen, setResourceOpen, "Resource"], [researchOpen, setResearchOpen, "Research"]];
 
   // Close dropdown on outside click
@@ -131,7 +131,7 @@ export default function MBANavbar() {
   return (
     <div className="pdf-wrapper overflow-auto" >  {/*style={styles.wrapper}>*/}
       {/* ── Top Nav Bar ── */}
-      <nav className={navbarStyles.container} ref={navRef} aria-label="MBA Portal Navigation">
+      <nav className={navbarStyles.container} ref={navRef} aria-label="Sabbir's Portal Navigation">
         {/* Brand */}
         <div className="mr-2">
         <HamburgerButton
@@ -144,9 +144,9 @@ export default function MBANavbar() {
 
 
         {<NavMenuComponent navComponents={navComponents} handleCourseSelect={handleCourseSelect}
-        componentOpen={mastersOpen} onSetComponentOpen={setMastersOpen} comp={"MASTERS"} setProgram={setProgram}/>}
+        componentOpen={mastersOpen} onSetComponentOpen={setMastersOpen} comp={"Masters"} setProgram={setProgram}/>}
         {<NavMenuComponent navComponents={navComponents} handleCourseSelect={handleCourseSelect}
-        componentOpen={mbaOpen} onSetComponentOpen={setMbaOpen} comp={"MBA"} setProgram={setProgram}/>}
+        componentOpen={mbaOpen} onSetComponentOpen={setMbaOpen} comp={"Mba"} setProgram={setProgram}/>}
         {<NavMenuComponent navComponents={navComponents} handleCourseSelect={handleCourseSelect}
         componentOpen={resumeOpen} onSetComponentOpen={setResumeOpen} comp={"Resume"} setProgram={setProgram}/>}
         {<NavMenuComponent navComponents={navComponents} handleCourseSelect={handleCourseSelect}

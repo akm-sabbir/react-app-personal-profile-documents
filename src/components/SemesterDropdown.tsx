@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import {navData, resources, mastersNavData, resumeNavData, resourceNavData, researchNavData} from '../constants/resourcesData';
 import {dropdownStyles, flyoutStyles} from '../styles/componentStyles';
 
-const dataSetList = [["MASTERS", mastersNavData], ["MBA", navData], ["Resume", resumeNavData],
+const dataSetList = [["Masters", mastersNavData], ["Mba", navData], ["Resume", resumeNavData],
 ["Resource",resourceNavData], ["Research",researchNavData]]
 function CourseFlyout({ courses, onSelect }) {
   return (
